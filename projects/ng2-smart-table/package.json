@@ -1,0 +1,14 @@
+{
+  "name": "@cdp/ng2-smart-table",
+  "version": "1.8.2",
+  "description": "Angular Smart Table",
+  "author": "akveo",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^13.3.0",
+    "@angular/core": "^13.3.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
