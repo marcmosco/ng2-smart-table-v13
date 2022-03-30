@@ -2,7 +2,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/lib",
+    "outDir": "../../out-tsc/app",
     "declarationMap": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -20,13 +20,19 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ]
+    "strictPropertyInitialization": false,
+    "types": [ "node" ],
+    "typeRoots": [ "../../node_modules/@types" ]
   },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts",
+    "../ng2-smart-table/src/**/*.ts"
+  ],
   "angularCompilerOptions": {
-    "compilationMode": "partial",
     "defaultEncapsulation": 2,
     "enableI18nLegacyMessageIdFormat": false,
     "strict": true,
@@ -37,9 +43,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
-  ]
+  }
 }

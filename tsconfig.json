@@ -11,16 +11,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "paths": {
-     "demo": [
-        "dist/demo/demo",
-        "dist/demo"
-      ],
-      "ng2-smart-table": [
-        "dist/ng2-smart-table/ng2-smart-table",
-        "dist/ng2-smart-table"
-      ]
-    },
+
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
@@ -31,7 +22,16 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "demo": [
+        "dist/demo/demo",
+        "dist/demo"
+      ],
+      "ng2-smart-table": [
+        "projects/ng2-smart-table/src/public-api.ts"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
