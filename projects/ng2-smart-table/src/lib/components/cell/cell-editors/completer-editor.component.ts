@@ -45,7 +45,7 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
         config.dataService = this.completerService.remote(
           config.url,
           null,
-          config.titleField
+          null
         );
       } else {
         config.dataService = this.completerService.local(
