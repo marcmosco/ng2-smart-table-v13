@@ -18,6 +18,10 @@ export const routes: Routes =[
     path: 'examples',
     loadChildren: () => import('./pages/examples/examples.module').then(m => m.ExamplesModule),
   },
+  {
+    path: 'testMarco',
+    loadChildren: () => import('./pages/testMarco/testMarco.module').then(m => m.TestMarcoModule),
+  },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
