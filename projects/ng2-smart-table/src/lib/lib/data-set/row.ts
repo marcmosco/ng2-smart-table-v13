@@ -53,4 +53,9 @@ export class Row {
     const value = typeof this.data[column.id] === 'undefined' ? defValue : this.data[column.id];
     return new Cell(value, this, column, this._dataSet);
   }
+
+  reset(): any {
+
+    this.process();
+  }
 }
