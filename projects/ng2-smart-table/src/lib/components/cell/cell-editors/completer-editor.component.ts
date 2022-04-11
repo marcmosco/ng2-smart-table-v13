@@ -45,7 +45,7 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
         config.dataService = this.completerService.remote(
           config.url,
           null,
-          null
+          config.titleField
         );
       } else {
         config.dataService = this.completerService.local(
@@ -53,14 +53,21 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
           config.searchFields,
           config.titleField
         );
+        config.dataService.descriptionField(config.descriptionField);
       }
 
-      config.dataService.descriptionField(config.descriptionField);
+
     }
   }
 
   onEditedCompleter(event:any): boolean {
-    this.cell.newValue = event.title;
+    const config = this.cell.getColumn().getConfig().completer;
+    if (config.remote && config.url) {
+      this.cell.newValue = event.originalObject[config.valueField];
+    }
+    else {
+      this.cell.newValue = event.title;
+    }
     return false;
   }
 

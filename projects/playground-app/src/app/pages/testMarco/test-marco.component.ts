@@ -72,8 +72,8 @@ export class TestMarcoComponent implements OnInit {
           type: "completer",
           config: {
             completer: {
-              titleField: "codice",
-              descriptionField: "descrizioneCompleta",
+              titleField: "descrizioneCompleta",
+              valueField:'codice',
               remote: true,
               url: "http://localhost:8090/dizionario/listaVociCoge?size=32&filter=",
             },
