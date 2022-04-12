@@ -9,7 +9,7 @@ import { DefaultEditor } from "./default-editor";
   template: `
 
     <ng2-completer
-      [(ngModel)]="this.cell.newValue"
+      [(ngModel)]="completerStr"
       [clearUnselected]="true"
       [dataService]="cell.getColumn().getConfig().completer.dataService"
       [minSearchLength]="
@@ -35,7 +35,7 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
   }
 
   ngOnInit() {
-
+    this.completerStr=this.cell.getValue();
     if (
       this.cell.getColumn().editor &&
       this.cell.getColumn().editor.type === "completer"
@@ -44,9 +44,10 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
       if (config.remote && config.url) {
         config.dataService = this.completerService.remote(
           config.url,
-          null,
+        null,
           config.titleField
         );
+        config.dataService.descriptionField(config.descriptionField);
       } else {
         config.dataService = this.completerService.local(
           config.data,
@@ -61,13 +62,7 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
   }
 
   onEditedCompleter(event:any): boolean {
-    const config = this.cell.getColumn().getConfig().completer;
-    if (config.remote && config.url) {
-      this.cell.newValue = event.originalObject[config.valueField];
-    }
-    else {
-      this.cell.newValue = event.title;
-    }
+    this.cell.newValue = event.title;
     return false;
   }
 

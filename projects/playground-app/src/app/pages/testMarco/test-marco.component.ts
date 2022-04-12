@@ -36,6 +36,7 @@ export class TestMarcoComponent implements OnInit {
       confirmDelete: true,
     },
     edit: {
+      confirmSave: true,
       editButtonContent: "Edit",
       saveButtonContent: "OK_EDIT",
       cancelButtonContent: "KO_EDIT",
@@ -73,7 +74,6 @@ export class TestMarcoComponent implements OnInit {
           config: {
             completer: {
               titleField: "descrizioneCompleta",
-              valueField:'codice',
               remote: true,
               url: "http://localhost:8090/dizionario/listaVociCoge?size=32&filter=",
             },
@@ -154,5 +154,9 @@ export class TestMarcoComponent implements OnInit {
     } else {
       event.confirm.reject();
     }
+  }
+
+  logga(event){
+    console.log(event.newData);
   }
 }
