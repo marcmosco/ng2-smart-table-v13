@@ -62,7 +62,13 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
   }
 
   onEditedCompleter(event:any): boolean {
-    this.cell.newValue = event.title;
+    const config = this.cell.getColumn().getConfig().completer;
+    if (config.remote && config.url) {
+      this.cell.newValue = event.originalObject[config.valueField];
+    }
+    else {
+      this.cell.newValue = event.title;
+    }
     return false;
   }
 
