@@ -67,7 +67,7 @@ export class PagerComponent implements OnChanges {
   @Input() perPageSelect: any[] = [];
   @Input() disablePaginator:boolean;
   @Output() changePage = new EventEmitter<any>();
-
+  @Output() alertPagination = new EventEmitter<any>();
   currentPerPage: any;
 
   protected pages: Array<any>;
@@ -117,6 +117,10 @@ export class PagerComponent implements OnChanges {
   }
 
   paginate(page: number): boolean {
+    if(this.disablePaginator){
+      this.alertPagination.emit(true);
+      return false;
+    }
     this.source.setPage(page);
     this.page = page;
     this.changePage.emit({ page });
