@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, OnChanges } from '@angular/core';
+import {Component, Input, EventEmitter, OnChanges, Output} from '@angular/core';
 
 import { Grid } from '../../../lib/grid';
 import { Row } from '../../../lib/data-set/row';
@@ -17,6 +17,7 @@ export class TbodyCreateCancelComponent implements OnChanges {
   @Input() grid: Grid;
   @Input() row: Row;
   @Input() editConfirm: EventEmitter<any>;
+  @Output() undoEvent: EventEmitter<any>;
 
   cancelButtonContent: string;
   saveButtonContent: string;
@@ -33,7 +34,7 @@ export class TbodyCreateCancelComponent implements OnChanges {
     event.stopPropagation();
     this.row.reset();
     this.row.isInEditing = false;
-
+    this.undoEvent.emit();
   }
 
   ngOnChanges() {

@@ -8,7 +8,8 @@
                       (create)="create.emit($event)"
                       (selectAllRows)="onSelectAllRows($event)"
                       (sort)="sort($event)"
-                      (filter)="filter($event)">
+                      (filter)="filter($event)"
+                      (undoEvent)="undoEvent.emit()">
   </thead>
 
   <tbody ng2-st-tbody [grid]="grid"
@@ -22,7 +23,8 @@
                       (userSelectRow)="onUserSelectRow($event)"
                       (editRowSelect)="editRowSelect($event)"
                       (multipleSelectRow)="multipleSelectRow($event)"
-                      (rowHover)="onRowHover($event)">
+                      (rowHover)="onRowHover($event)"
+                       (undoEvent)="undoEvent.emit()">
   </tbody>
 
 </table>

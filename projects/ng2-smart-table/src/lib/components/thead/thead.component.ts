@@ -15,6 +15,7 @@ export class Ng2SmartTableTheadComponent implements OnChanges {
     @Input() createConfirm: EventEmitter<any>;
 
     @Output() sort = new EventEmitter<any>();
+    @Output() undoEvent = new EventEmitter<any>();
     @Output() selectAllRows = new EventEmitter<any>();
     @Output() create = new EventEmitter<any>();
     @Output() filter = new EventEmitter<any>();

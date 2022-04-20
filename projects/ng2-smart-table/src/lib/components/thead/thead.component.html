@@ -17,5 +17,6 @@
 
 <tr ng2-st-thead-form-row *ngIf="grid.createFormShown"
                           [grid]="grid"
-                          [createConfirm]="createConfirm">
+                          [createConfirm]="createConfirm"
+                           (undoEvent)="undoEvent.emit()">
 </tr>

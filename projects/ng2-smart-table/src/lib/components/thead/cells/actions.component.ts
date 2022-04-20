@@ -29,6 +29,7 @@ export class ActionsComponent implements OnChanges {
   @Input() grid: Grid;
   @Output() create = new EventEmitter<any>();
   @Output() paste = new EventEmitter<any>();
+  @Output() undoEvent = new EventEmitter<any>();
   @Input() isPasting: boolean;
   createButtonContent: string;
   cancelButtonContent: string;
@@ -49,6 +50,7 @@ export class ActionsComponent implements OnChanges {
   }
 
   cancel(event) {
+    this.undoEvent.emit();
     event.preventDefault();
     this.grid.createFormShown = false;
     if (this.isPasting) {

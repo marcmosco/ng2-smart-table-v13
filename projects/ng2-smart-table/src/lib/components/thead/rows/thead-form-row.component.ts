@@ -21,6 +21,7 @@ import { Cell } from "../../../lib/data-set/cell";
         [grid]="grid"
         (create)="onCreate($event)"
         (paste)="onPaste($event)"
+        (undoEvent)="undoEvent.emit()"
       ></ng2-st-actions>
     </td>
 
@@ -59,6 +60,7 @@ import { Cell } from "../../../lib/data-set/cell";
         [grid]="grid"
         (create)="onCreate($event)"
         (paste)="onPaste($event)"
+        (undoEvent)="undoEvent.emit()"
       ></ng2-st-actions>
     </td>
   `,
@@ -72,6 +74,7 @@ export class TheadFormRowComponent implements OnChanges, OnInit {
   @Input() createConfirm: EventEmitter<any>;
 
   @Output() create = new EventEmitter<any>();
+  @Output() undoEvent = new EventEmitter<any>();
 
   isMultiSelectVisible: boolean;
   showActionColumnLeft: boolean;
