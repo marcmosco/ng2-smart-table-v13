@@ -9,14 +9,14 @@ import { DataSource } from '../../lib/data-source/data-source';
   template: `
     <nav *ngIf="shouldShow()" class="ng2-smart-pagination-nav">
       <ul class="ng2-smart-pagination pagination">
-        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: getPage() == 1}">
+        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: disablePaginator || getPage() == 1}">
           <a class="ng2-smart-page-link page-link" href="#"
           (click)="getPage() == 1 ? false : paginate(1)" aria-label="First">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">First</span>
           </a>
         </li>
-        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: getPage() == 1}">
+        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: disablePaginator|| getPage() == 1}">
           <a class="ng2-smart-page-link page-link page-link-prev" href="#"
              (click)="getPage() == 1 ? false : prev()" aria-label="Prev">
             <span aria-hidden="true">&lt;</span>
@@ -24,7 +24,7 @@ import { DataSource } from '../../lib/data-source/data-source';
           </a>
         </li>
         <li class="ng2-smart-page-item page-item"
-        [ngClass]="{active: getPage() == page}" *ngFor="let page of getPages()">
+        [ngClass]="{active: getPage() == page, disabled:disablePaginator}" *ngFor="let page of getPages()">
           <span class="ng2-smart-page-link page-link"
           *ngIf="getPage() == page">{{ page }} <span class="sr-only">(current)</span></span>
           <a class="ng2-smart-page-link page-link" href="#"
@@ -32,7 +32,7 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
 
         <li class="ng2-smart-page-item page-item"
-            [ngClass]="{disabled: getPage() == getLast()}">
+            [ngClass]="{disabled: disablePaginator || getPage() == getLast()}">
           <a class="ng2-smart-page-link page-link page-link-next" href="#"
              (click)="getPage() == getLast() ? false : next()" aria-label="Next">
             <span aria-hidden="true">&gt;</span>
@@ -41,7 +41,7 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
 
         <li class="ng2-smart-page-item page-item"
-        [ngClass]="{disabled: getPage() == getLast()}">
+        [ngClass]="{disabled: disablePaginator || getPage() == getLast()}">
           <a class="ng2-smart-page-link page-link" href="#"
           (click)="getPage() == getLast() ? false : paginate(getLast())" aria-label="Last">
             <span aria-hidden="true">&raquo;</span>
@@ -65,7 +65,7 @@ export class PagerComponent implements OnChanges {
 
   @Input() source: DataSource;
   @Input() perPageSelect: any[] = [];
-
+  @Input() disablePaginator:boolean;
   @Output() changePage = new EventEmitter<any>();
 
   currentPerPage: any;

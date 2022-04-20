@@ -76,7 +76,7 @@ export class TestMarcoComponent implements OnInit {
               titleField: "descrizioneCompleta",
               valueField:'codice',
               remote: true,
-              url: "http://localhost:8090/dizionario/listaVociCoge?size=32&filter=",
+              url: "http://localhost:8090/dizionario/listaCausali?size=32&filter=",
             },
           },
         },

@@ -56,8 +56,6 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
         );
         config.dataService.descriptionField(config.descriptionField);
       }
-
-
     }
   }
 
