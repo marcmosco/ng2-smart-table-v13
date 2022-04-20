@@ -36,6 +36,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   @Output() editConfirm = new EventEmitter<any>();
   @Output() createConfirm = new EventEmitter<any>();
   @Output() rowHover: EventEmitter<any> = new EventEmitter<any>();
+  @Output() alert: EventEmitter<any> = new EventEmitter<any>();
 
   tableClass: string;
   tableId: string;
@@ -325,5 +326,9 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
       .subscribe((row) => {
         this.emitDeselectRow(row);
       });
+  }
+
+  alertPagination(){
+    this.alert.emit();
   }
 }
