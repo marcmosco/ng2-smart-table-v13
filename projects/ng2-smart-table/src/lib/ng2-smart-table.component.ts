@@ -38,6 +38,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   @Output() rowHover: EventEmitter<any> = new EventEmitter<any>();
   @Output() alert: EventEmitter<any> = new EventEmitter<any>();
   @Output() undoEvent = new EventEmitter<any>();
+  @Output() editRow = new EventEmitter<any>();
 
   tableClass: string;
   tableId: string;
@@ -186,6 +187,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   }
 
   editRowSelect(row: Row) {
+    this.edit.emit();
     if (this.grid.getSetting("selectMode") === "multi") {
       this.onMultipleSelectRow(row);
     } else {

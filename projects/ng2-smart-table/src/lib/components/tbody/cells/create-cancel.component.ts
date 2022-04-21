@@ -17,7 +17,7 @@ export class TbodyCreateCancelComponent implements OnChanges {
   @Input() grid: Grid;
   @Input() row: Row;
   @Input() editConfirm: EventEmitter<any>;
-  @Output() undoEvent: EventEmitter<any>= new EventEmitter<any>();
+  @Output() undoEvent: EventEmitter<any> = new EventEmitter<any>();
 
   cancelButtonContent: string;
   saveButtonContent: string;
