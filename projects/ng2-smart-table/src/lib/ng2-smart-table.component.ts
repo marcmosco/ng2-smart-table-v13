@@ -187,7 +187,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   }
 
   editRowSelect(row: Row) {
-    this.edit.emit();
+    this.editRow.emit();
     if (this.grid.getSetting("selectMode") === "multi") {
       this.onMultipleSelectRow(row);
     } else {
