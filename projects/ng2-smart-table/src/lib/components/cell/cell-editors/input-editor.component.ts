@@ -8,7 +8,7 @@ import { DefaultEditor } from './default-editor';
   template: `
     <input [ngClass]="inputClass"
            class="form-control"
-           [(ngModel)]="cell.newValue"
+           [(ngModel)]="cell.getDefaultValue()?cell.getDefaultValue():cell.newValue"
            [name]="cell.getId()"
            [placeholder]="cell.getTitle()"
            [disabled]="!cell.isEditable()"
@@ -23,5 +23,5 @@ export class InputEditorComponent extends DefaultEditor{
     super();
   }
 
-  
+
 }

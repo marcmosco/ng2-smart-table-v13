@@ -3,6 +3,7 @@ import { DataSet } from './data-set';
 export class Column {
 
   title: string = '';
+  defaultValue: string = '';
   type: string = '';
   class: string = '';
   width: string = '';
@@ -55,6 +56,7 @@ export class Column {
 
   protected process() {
     this.title = this.settings['title'];
+    this.defaultValue = this.settings['defaultValue'];
     this.class = this.settings['class'];
     this.width = this.settings['width'];
     this.hide = !!this.settings['hide'];

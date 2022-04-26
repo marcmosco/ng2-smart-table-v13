@@ -82,10 +82,10 @@ export class TestMarcoComponent implements OnInit {
         },
       },
 
-      DINIVAL: {
+      dinival: {
         addable:false,
         title: "Chiusura",
-
+        defaultValue:this.datePipe.transform(new Date(), 'dd/MM/yyyy'),
         valuePrepareFunction: (created: any) => {
           if (created) {
             return this.datePipe.transform(new Date(created), "dd/MM/yyyy");

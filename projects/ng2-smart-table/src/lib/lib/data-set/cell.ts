@@ -48,4 +48,7 @@ export class Cell {
     }
   }
 
+  getDefaultValue(): string {
+    return this.getColumn().defaultValue;
+  }
 }
