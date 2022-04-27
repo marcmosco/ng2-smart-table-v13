@@ -4,6 +4,7 @@ export class Column {
 
   title: string = '';
   defaultValue: string = '';
+  maxLength: number = 500;
   type: string = '';
   class: string = '';
   width: string = '';
@@ -57,6 +58,7 @@ export class Column {
   protected process() {
     this.title = this.settings['title'];
     this.defaultValue = this.settings['defaultValue'];
+    this.maxLength = typeof this.settings['maxLength'] === 'undefined'?500:this.settings['maxLength'];
     this.class = this.settings['class'];
     this.width = this.settings['width'];
     this.hide = !!this.settings['hide'];

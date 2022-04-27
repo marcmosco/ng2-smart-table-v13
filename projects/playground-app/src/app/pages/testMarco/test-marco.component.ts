@@ -65,7 +65,8 @@ export class TestMarcoComponent implements OnInit {
       },
       SDESCR: {
         title: "Descrizione",
-        editable: false,
+        editable: true,
+        maxLength:6
       },
       CCHIUSU: {
         title: "Codice",

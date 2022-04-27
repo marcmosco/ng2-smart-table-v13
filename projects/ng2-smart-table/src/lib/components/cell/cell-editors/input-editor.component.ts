@@ -12,6 +12,7 @@ import { DefaultEditor } from './default-editor';
            [name]="cell.getId()"
            [placeholder]="cell.getTitle()"
            [disabled]="!cell.isEditable()"
+           [maxLength]="cell.getMaxLength()"
            (click)="onClick.emit($event)"
            (keydown.enter)="onEdited.emit($event)"
            (keydown.esc)="onStopEditing.emit()">

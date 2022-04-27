@@ -51,4 +51,9 @@ export class Cell {
   getDefaultValue(): string {
     return this.getColumn().defaultValue;
   }
+
+  getMaxLength(): number {
+    console.log('max',this.getColumn().maxLength);
+    return this.getColumn().maxLength;
+  }
 }
