@@ -57,6 +57,7 @@ export class ActionsComponent implements OnChanges {
       this.grid.dataSet.rowToPaste = null;
     }
   }
+
   onOk(event) {
     event.preventDefault();
 

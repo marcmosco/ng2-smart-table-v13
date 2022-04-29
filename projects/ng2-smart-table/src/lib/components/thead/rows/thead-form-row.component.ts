@@ -21,7 +21,7 @@ import { Cell } from "../../../lib/data-set/cell";
         [grid]="grid"
         (create)="onCreate($event)"
         (paste)="onPaste($event)"
-        (undoEvent)="undoEvent.emit()"
+        (undoEvent)="undo()"
       ></ng2-st-actions>
     </td>
 
@@ -60,7 +60,7 @@ import { Cell } from "../../../lib/data-set/cell";
         [grid]="grid"
         (create)="onCreate($event)"
         (paste)="onPaste($event)"
-        (undoEvent)="undoEvent.emit()"
+        (undoEvent)="undo()"
       ></ng2-st-actions>
     </td>
   `,
@@ -109,5 +109,11 @@ export class TheadFormRowComponent implements OnChanges, OnInit {
     } else {
       this.cells = this.grid.getNewRow().getCells();
     }
+  }
+
+  undo(){
+    this.undoEvent.emit();
+
+    this.grid.getDataSet().createNewRow();
   }
 }
