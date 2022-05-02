@@ -30,6 +30,7 @@
                   [inputClass]="inputClass"
                   (onClick)="onClick($event)"
                   (onEdited)="onEdited($event)"
-                  (onStopEditing)="onStopEditing()">
+                  (onStopEditing)="onStopEditing()"
+                  [isInPasting]="isInPasting">
     </input-editor>
 </div>

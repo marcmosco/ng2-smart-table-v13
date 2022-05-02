@@ -3,13 +3,12 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
-  template: ''
+  template: '',
 })
 export class EditCellDefault {
-
   @Input() cell: Cell;
   @Input() inputClass: string = '';
-
+  @Input() isInPasting: boolean = false;
   @Output() edited = new EventEmitter<any>();
 
   onEdited(event: any): boolean {

@@ -11,6 +11,7 @@ export class Column {
   hide: boolean = false;
   isSortable: boolean = false;
   isEditable: boolean = true;
+  isPasteble:boolean=true;
   isAddable: boolean = true;
   isFilterable: boolean = false;
   sortDirection: string = '';
@@ -73,6 +74,7 @@ export class Column {
     this.isSortable = typeof this.settings['sort'] === 'undefined' ? true : !!this.settings['sort'];
     this.isEditable = typeof this.settings['editable'] === 'undefined' ? true : !!this.settings['editable'];
     this.isAddable=typeof this.settings['addable'] === 'undefined' ? true : !!this.settings['addable'];
+    this.isPasteble = typeof this.settings['pasteble'] === 'undefined' ? true : !!this.settings['pasteble'];
     this.sortDirection = this.prepareSortDirection();
 
     this.compareFunction = this.settings['compareFunction'];

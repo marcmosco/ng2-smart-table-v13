@@ -7,10 +7,11 @@ import { Component } from '@angular/core';
   `,
 })
 export class BasicExampleDataComponent {
-
   settings = {
     columns: {
       id: {
+        editable: false,
+        pasteble: false,
         title: 'ID',
       },
       name: {

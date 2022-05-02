@@ -56,4 +56,9 @@ export class Cell {
     console.log('max',this.getColumn().maxLength);
     return this.getColumn().maxLength;
   }
+
+  isPasteble():boolean{
+    return this.getColumn().isPasteble;
+  }
+
 }

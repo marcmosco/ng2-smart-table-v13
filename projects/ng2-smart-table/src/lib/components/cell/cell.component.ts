@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { Grid } from '../../lib/grid';
 import { Cell } from '../../lib/data-set/cell';
@@ -7,15 +7,23 @@ import { Row } from '../../lib/data-set/row';
 @Component({
   selector: 'ng2-smart-table-cell',
   template: `
-    <table-cell-view-mode *ngIf="!isInEditing" [cell]="cell"></table-cell-view-mode>
-    <table-cell-edit-mode *ngIf="isInEditing" [cell]="cell"
-                          [inputClass]="inputClass"
-                          (edited)="onEdited($event)">
+    <ng-template #noEditing>
+      <table-cell-view-mode
+        *ngIf="!isInEditing"
+        [cell]="cell"
+      ></table-cell-view-mode>
+    </ng-template>
+    <table-cell-edit-mode
+      *ngIf="isInEditing || isInPasting; else noEditing"
+      [cell]="cell"
+      [inputClass]="inputClass"
+      (edited)="onEdited($event)"
+      [isInPasting]="isInPasting"
+    >
     </table-cell-edit-mode>
   `,
 })
 export class CellComponent {
-
   @Input() grid: Grid;
   @Input() row: Row;
   @Input() editConfirm: EventEmitter<any>;
@@ -25,6 +33,7 @@ export class CellComponent {
   @Input() inputClass: string = '';
   @Input() mode: string = 'inline';
   @Input() isInEditing: boolean = false;
+  @Input() isInPasting: boolean = false;
 
   @Output() edited = new EventEmitter<any>();
 
@@ -35,5 +44,4 @@ export class CellComponent {
       this.grid.save(this.row, this.editConfirm);
     }
   }
-
 }

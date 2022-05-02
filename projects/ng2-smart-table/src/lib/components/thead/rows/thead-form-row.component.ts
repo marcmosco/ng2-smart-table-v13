@@ -5,14 +5,14 @@ import {
   EventEmitter,
   OnChanges,
   OnInit,
-} from "@angular/core";
+} from '@angular/core';
 
-import { Grid } from "../../../lib/grid";
-import { Row } from "../../../lib/data-set/row";
-import { Cell } from "../../../lib/data-set/cell";
+import { Grid } from '../../../lib/grid';
+import { Row } from '../../../lib/data-set/row';
+import { Cell } from '../../../lib/data-set/cell';
 
 @Component({
-  selector: "[ng2-st-thead-form-row]",
+  selector: '[ng2-st-thead-form-row]',
   template: `
     <td *ngIf=""></td>
     <td *ngIf="showActionColumnLeft" class="ng2-smart-actions">
@@ -33,6 +33,7 @@ import { Cell } from "../../../lib/data-set/cell";
         [createConfirm]="createConfirm"
         [inputClass]="addInputClass"
         [isInEditing]="isPasting ? true : grid.getNewRow().isInEditing"
+        [isInPasting]="isPasting"
         (edited)="onCreate($event)"
       >
       </ng2-smart-table-cell>
@@ -93,9 +94,9 @@ export class TheadFormRowComponent implements OnChanges, OnInit {
 
   ngOnChanges() {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
-    this.showActionColumnLeft = this.grid.showActionColumn("left");
-    this.showActionColumnRight = this.grid.showActionColumn("right");
-    this.addInputClass = this.grid.getSetting("add.inputClass");
+    this.showActionColumnLeft = this.grid.showActionColumn('left');
+    this.showActionColumnRight = this.grid.showActionColumn('right');
+    this.addInputClass = this.grid.getSetting('add.inputClass');
   }
 
   getVisibleCells(cells: Array<Cell>): Array<Cell> {
@@ -111,7 +112,7 @@ export class TheadFormRowComponent implements OnChanges, OnInit {
     }
   }
 
-  undo(){
+  undo() {
     this.undoEvent.emit();
 
     this.grid.getDataSet().createNewRow();
