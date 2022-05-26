@@ -1,12 +1,12 @@
-import { Subject, Subscription } from "rxjs";
-import { Observable } from "rxjs";
-import { EventEmitter } from "@angular/core";
+import { Subject, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { EventEmitter } from '@angular/core';
 
-import { Deferred, getDeepFromObject, getPageForRowIndex } from "./helpers";
-import { Column } from "./data-set/column";
-import { Row } from "./data-set/row";
-import { DataSet } from "./data-set/data-set";
-import { DataSource } from "./data-source/data-source";
+import { Deferred, getDeepFromObject, getPageForRowIndex } from './helpers';
+import { Column } from './data-set/column';
+import { Row } from './data-set/row';
+import { DataSet } from './data-set/data-set';
+import { DataSource } from './data-source/data-source';
 
 export class Grid {
   createFormShown: boolean = false;
@@ -40,20 +40,24 @@ export class Grid {
   }
 
   isCurrentActionsPosition(position: string): boolean {
-    return position == this.getSetting("actions.position");
+    return position == this.getSetting('actions.position');
   }
 
   isActionsVisible(): boolean {
     return (
-      this.getSetting("actions.add") ||
-      this.getSetting("actions.edit") ||
-      this.getSetting("actions.delete") ||
-      this.getSetting("actions.custom").length
+      this.getSetting('actions.add') ||
+      this.getSetting('actions.edit') ||
+      this.getSetting('actions.delete') ||
+      this.getSetting('actions.custom').length
     );
   }
 
   isMultiSelectVisible(): boolean {
-    return this.getSetting("selectMode") === "multi";
+    return this.getSetting('selectMode') === 'multi';
+  }
+
+  isSelectAllAvaible(): boolean {
+    return this.isMultiSelectVisible() && this.getSetting('selectAll') === true;
   }
 
   getNewRow(): Row {
@@ -62,7 +66,7 @@ export class Grid {
 
   setSettings(settings: Object) {
     this.settings = settings;
-    this.dataSet = new DataSet([], this.getSetting("columns"));
+    this.dataSet = new DataSet([], this.getSetting('columns'));
 
     if (this.source) {
       this.source.refresh();
@@ -140,8 +144,8 @@ export class Grid {
       });
 
     if (
-      this.getSetting("add.confirmCreate") ||
-      this.getSetting("paste.confirmCreate")
+      this.getSetting('add.confirmCreate') ||
+      this.getSetting('paste.confirmCreate')
     ) {
       confirmEmitter.emit({
         newData: row.getNewData(),
@@ -161,7 +165,7 @@ export class Grid {
         if (deferred.resolve.skipEdit) {
           row.isInEditing = false;
         } else {
-          if (this.getSetting("edit.onlyFE")) {
+          if (this.getSetting('edit.onlyFE')) {
             this.source.updateOnlyFE(row.getData(), newData).then(() => {
               row.isInEditing = false;
             });
@@ -176,7 +180,7 @@ export class Grid {
         // doing nothing
       });
 
-    if (this.getSetting("edit.confirmSave")) {
+    if (this.getSetting('edit.confirmSave')) {
       confirmEmitter.emit({
         data: row.getData(),
         newData: row.getNewData(),
@@ -198,7 +202,7 @@ export class Grid {
         // doing nothing
       });
 
-    if (this.getSetting("delete.confirmDelete")) {
+    if (this.getSetting('delete.confirmDelete')) {
       confirmEmitter.emit({
         data: row.getData(),
         source: this.source,
@@ -211,8 +215,8 @@ export class Grid {
 
   processDataChange(changes: any) {
     if (this.shouldProcessChange(changes)) {
-      this.dataSet.setData(changes["elements"]);
-      if (this.getSetting("selectMode") !== "multi") {
+      this.dataSet.setData(changes['elements']);
+      if (this.getSetting('selectMode') !== 'multi') {
         const row = this.determineRowToSelect(changes);
 
         if (row) {
@@ -221,19 +225,20 @@ export class Grid {
           this.onDeselectRowSource.next(null);
         }
       }
+      this.source.getDataProcessedSource().next(true);
     }
   }
 
   shouldProcessChange(changes: any): boolean {
     if (
-      ["filter", "sort", "page", "remove", "refresh", "load", "paging"].indexOf(
-        changes["action"]
+      ['filter', 'sort', 'page', 'remove', 'refresh', 'load', 'paging'].indexOf(
+        changes['action']
       ) !== -1
     ) {
       return true;
     } else if (
-      ["prepend", "append"].indexOf(changes["action"]) !== -1 &&
-      !this.getSetting("pager.display")
+      ['prepend', 'append'].indexOf(changes['action']) !== -1 &&
+      !this.getSetting('pager.display')
     ) {
       return true;
     }
@@ -249,8 +254,8 @@ export class Grid {
    */
   determineRowToSelect(changes: any): Row {
     if (
-      ["load", "page", "filter", "sort", "refresh"].indexOf(
-        changes["action"]
+      ['load', 'page', 'filter', 'sort', 'refresh'].indexOf(
+        changes['action']
       ) !== -1
     ) {
       return this.dataSet.select(this.getRowIndexToSelect());
@@ -260,25 +265,25 @@ export class Grid {
       return null;
     }
 
-    if (changes["action"] === "remove") {
-      if (changes["elements"].length === 0) {
+    if (changes['action'] === 'remove') {
+      if (changes['elements'].length === 0) {
         // we have to store which one to select as the data will be reloaded
         this.dataSet.willSelectLastRow();
       } else {
         return this.dataSet.selectPreviousRow();
       }
     }
-    if (changes["action"] === "append") {
+    if (changes['action'] === 'append') {
       // we have to store which one to select as the data will be reloaded
       this.dataSet.willSelectLastRow();
     }
-    if (changes["action"] === "add") {
+    if (changes['action'] === 'add') {
       return this.dataSet.selectFirstRow();
     }
-    if (changes["action"] === "update") {
+    if (changes['action'] === 'update') {
       return this.dataSet.selectFirstRow();
     }
-    if (changes["action"] === "prepend") {
+    if (changes['action'] === 'prepend') {
       // we have to store which one to select as the data will be reloaded
       this.dataSet.willSelectFirstRow();
     }
@@ -287,13 +292,13 @@ export class Grid {
 
   prepareSource(source: any): DataSource {
     const initialSource: any = this.getInitialSort();
-    if (initialSource && initialSource["field"] && initialSource["direction"]) {
+    if (initialSource && initialSource['field'] && initialSource['direction']) {
       source.setSort([initialSource], false);
     }
-    if (this.getSetting("pager.display") === true) {
+    if (this.getSetting('pager.display') === true) {
       source.setPaging(
         this.getPageToSelect(source),
-        this.getSetting("pager.perPage"),
+        this.getSetting('pager.perPage'),
         false
       );
     }
@@ -306,9 +311,9 @@ export class Grid {
     const sortConf: any = {};
     this.getColumns().forEach((column: Column) => {
       if (column.isSortable && column.defaultSortDirection) {
-        sortConf["field"] = column.id;
-        sortConf["direction"] = column.defaultSortDirection;
-        sortConf["compare"] = column.getCompareFunction();
+        sortConf['field'] = column.id;
+        sortConf['direction'] = column.defaultSortDirection;
+        sortConf['compare'] = column.getCompareFunction();
       }
     });
     return sortConf;
@@ -337,12 +342,12 @@ export class Grid {
     switchPageToSelectedRowPage: boolean;
   } {
     const switchPageToSelectedRowPage: boolean = this.getSetting(
-      "switchPageToSelectedRowPage"
+      'switchPageToSelectedRowPage'
     );
     const selectedRowIndex: number =
-      Number(this.getSetting("selectedRowIndex", 0)) || 0;
+      Number(this.getSetting('selectedRowIndex', 0)) || 0;
     const { perPage, page }: { perPage: number; page: number } =
-      this.getSetting("pager");
+      this.getSetting('pager');
     return { perPage, page, selectedRowIndex, switchPageToSelectedRowPage };
   }
 
@@ -392,7 +397,7 @@ export class Grid {
      * !!! We should skip a row only in cases when `selectedRowIndex` < 0
      * because when < 0 all lines must be deselected
      */
-    const selectedRowIndex = Number(this.getSetting("selectedRowIndex"));
+    const selectedRowIndex = Number(this.getSetting('selectedRowIndex'));
     return selectedRowIndex < 0;
   }
 }

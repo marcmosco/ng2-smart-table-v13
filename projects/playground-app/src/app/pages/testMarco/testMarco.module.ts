@@ -1,14 +1,11 @@
-import {NgModule} from '@angular/core';
-import {CommonModule, DatePipe} from '@angular/common';
-import {RouterModule} from '@angular/router';
-
-import {SharedModule} from '../../shared/shared.module';
-
-
-import {TestMarcoComponent} from './test-marco.component';
-import {routes} from './testMarco.routes';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
-import {HttpClientModule} from "@angular/common/http";
+import { NgModule } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '../../shared/shared.module';
+import { TestMarcoComponent } from './test-marco.component';
+import { routes } from './testMarco.routes';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,11 +13,10 @@ import {HttpClientModule} from "@angular/common/http";
     RouterModule.forChild(routes),
     SharedModule,
     HttpClientModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
   ],
-  declarations: [
-    TestMarcoComponent,
-  ],
-  providers:[DatePipe]
+  declarations: [TestMarcoComponent],
+  providers: [DatePipe],
+  exports: [TestMarcoComponent],
 })
-export class TestMarcoModule { }
+export class TestMarcoModule {}

@@ -29,6 +29,7 @@ import {
   BasicExampleButtonViewComponent,
   ButtonViewComponent,
 } from './custom-edit-view/basic-example-button-view.component';
+import { TestMarcoModule } from '../testMarco/testMarco.module';
 
 const EXAMPLES_COMPONENTS = [
   AdvancedExampleFiltersComponent,
@@ -67,9 +68,6 @@ const EXAMPLES_COMPONENTS = [
     CustomFilterComponent,
     ButtonViewComponent,
   ],
-  declarations: [
-    ExamplesComponent,
-    ...EXAMPLES_COMPONENTS,
-  ],
+  declarations: [ExamplesComponent, ...EXAMPLES_COMPONENTS],
 })
-export class ExamplesModule { }
+export class ExamplesModule {}

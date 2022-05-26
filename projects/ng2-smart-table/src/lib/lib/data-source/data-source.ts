@@ -1,11 +1,12 @@
-import { Subject } from "rxjs";
-import { Observable } from "rxjs";
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export abstract class DataSource {
   protected onChangedSource = new Subject<any>();
   protected onAddedSource = new Subject<any>();
   protected onUpdatedSource = new Subject<any>();
   protected onRemovedSource = new Subject<any>();
+  protected onDataProcessedSource = new Subject<any>();
 
   abstract getAll(): Promise<any>;
   abstract getElements(): Promise<any>;
@@ -15,16 +16,24 @@ export abstract class DataSource {
   abstract count(): number;
 
   refresh() {
-    this.emitOnChanged("refresh");
+    this.emitOnChanged('refresh');
   }
 
   load(data: Array<any>): Promise<any> {
-    this.emitOnChanged("load");
+    this.emitOnChanged('load');
     return Promise.resolve();
   }
 
   onChanged(): Observable<any> {
     return this.onChangedSource.asObservable();
+  }
+
+  onDataProcessed(): Observable<any> {
+    return this.onDataProcessedSource.asObservable();
+  }
+
+  getDataProcessedSource() {
+    return this.onDataProcessedSource;
   }
 
   onAdded(): Observable<any> {
@@ -41,31 +50,31 @@ export abstract class DataSource {
 
   prepend(element: any): Promise<any> {
     this.emitOnAdded(element);
-    this.emitOnChanged("prepend");
+    this.emitOnChanged('prepend');
     return Promise.resolve();
   }
 
   append(element: any): Promise<any> {
     this.emitOnAdded(element);
-    this.emitOnChanged("append");
+    this.emitOnChanged('append');
     return Promise.resolve();
   }
 
   add(element: any): Promise<any> {
     this.emitOnAdded(element);
-    this.emitOnChanged("add");
+    this.emitOnChanged('add');
     return Promise.resolve();
   }
 
   remove(element: any): Promise<any> {
     this.emitOnRemoved(element);
-    this.emitOnChanged("remove");
+    this.emitOnChanged('remove');
     return Promise.resolve();
   }
 
   update(element: any, values: any): Promise<any> {
     this.emitOnUpdated(element);
-    this.emitOnChanged("update");
+    this.emitOnChanged('update');
     return Promise.resolve();
   }
 
@@ -76,37 +85,37 @@ export abstract class DataSource {
   }
 
   empty(): Promise<any> {
-    this.emitOnChanged("empty");
+    this.emitOnChanged('empty');
     return Promise.resolve();
   }
 
   setSort(conf: Array<any>, doEmit?: boolean) {
     if (doEmit) {
-      this.emitOnChanged("sort");
+      this.emitOnChanged('sort');
     }
   }
 
   setFilter(conf: Array<any>, andOperator?: boolean, doEmit?: boolean) {
     if (doEmit) {
-      this.emitOnChanged("filter");
+      this.emitOnChanged('filter');
     }
   }
 
   addFilter(fieldConf: {}, andOperator?: boolean, doEmit?: boolean) {
     if (doEmit) {
-      this.emitOnChanged("filter");
+      this.emitOnChanged('filter');
     }
   }
 
   setPaging(page: number, perPage: number, doEmit?: boolean) {
     if (doEmit) {
-      this.emitOnChanged("paging");
+      this.emitOnChanged('paging');
     }
   }
 
   setPage(page: number, doEmit?: boolean) {
     if (doEmit) {
-      this.emitOnChanged("page");
+      this.emitOnChanged('page');
     }
   }
 

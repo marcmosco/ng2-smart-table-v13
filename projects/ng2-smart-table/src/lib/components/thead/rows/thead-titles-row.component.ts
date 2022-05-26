@@ -4,19 +4,19 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-} from "@angular/core";
+} from '@angular/core';
 
-import { Grid } from "../../../lib/grid";
-import { DataSource } from "../../../lib/data-source/data-source";
-import { Column } from "../../../lib/data-set/column";
+import { Grid } from '../../../lib/grid';
+import { DataSource } from '../../../lib/data-source/data-source';
+import { Column } from '../../../lib/data-set/column';
 
 @Component({
-  selector: "[ng2-st-thead-titles-row]",
-  styleUrls: ["./thead-titles-row.component.scss"],
+  selector: '[ng2-st-thead-titles-row]',
+  styleUrls: ['./thead-titles-row.component.scss'],
   template: `
     <th
       ng2-st-checkbox-select-all
-      *ngIf="isMultiSelectVisible"
+      *ngIf="isSelectAllAvaible"
       [grid]="grid"
       [source]="source"
       [isAllSelected]="isAllSelected"
@@ -49,11 +49,13 @@ export class TheadTitlesRowComponent implements OnChanges {
   isMultiSelectVisible: boolean;
   showActionColumnLeft: boolean;
   showActionColumnRight: boolean;
+  isSelectAllAvaible: boolean;
 
   ngOnChanges() {
     this.isMultiSelectVisible = this.grid.isMultiSelectVisible();
-    this.showActionColumnLeft = this.grid.showActionColumn("left");
-    this.showActionColumnRight = this.grid.showActionColumn("right");
+    this.isSelectAllAvaible = this.grid.isSelectAllAvaible();
+    this.showActionColumnLeft = this.grid.showActionColumn('left');
+    this.showActionColumnRight = this.grid.showActionColumn('right');
   }
 
   getVisibleColumns(columns: Array<Column>): Array<Column> {
