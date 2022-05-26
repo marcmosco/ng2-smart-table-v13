@@ -16,7 +16,8 @@ import { Column } from '../../../lib/data-set/column';
   template: `
     <th
       ng2-st-checkbox-select-all
-      *ngIf="isSelectAllAvaible"
+      *ngIf="isMultiSelectVisible"
+      [isSelectAllAvaible]="isSelectAllAvaible"
       [grid]="grid"
       [source]="source"
       [isAllSelected]="isAllSelected"

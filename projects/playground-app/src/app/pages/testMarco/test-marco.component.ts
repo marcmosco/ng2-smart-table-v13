@@ -23,27 +23,17 @@ export class TestMarcoComponent implements OnInit {
       position: 'right',
     },
     paste: {
-      pasteButtonContent: ' <i class="fas fa-copy" title="Copia"></i>',
-      createButtonContent: ' <i class="fas fa-check" title="Salva"></i>',
-      cancelButtonContent: ' <i class="fas fa-undo" title="Annulla"></i>',
       confirmCreate: true,
     },
     edit: {
-      editButtonContent: ' <i class="fas fa-pencil-alt" title="Modifica"></i>',
-      saveButtonContent: ' <i class="fas fa-check" title="Salva"></i>',
-      cancelButtonContent: ' <i class="fas fa-undo" title="Annulla"></i>',
       confirmSave: true,
     },
     delete: {
-      deleteButtonContent: ' <i class="fas fa-trash" title="Elimina"></i>',
       confirmDelete: true,
       tableConfirmDelete: true,
       andMode: 'inline',
     },
     add: {
-      addButtonContent: ' <i class="fas fa-plus" title="Aggiungi"></i>',
-      createButtonContent: ' <i class="fas fa-check" title="Salva"></i>',
-      cancelButtonContent: ' <i class="fas fa-undo" title="Annulla"></i>',
       confirmCreate: true,
       mode: 'inline',
     },
@@ -183,7 +173,12 @@ export class TestMarcoComponent implements OnInit {
 
   currentSelected: any[] = [];
 
+  hideAdd = false;
+
   ngOnInit() {
+    setTimeout(() => {
+      this.hideAdd = true;
+    }, 3000);
     this.source.onChanged().subscribe({
       next: (res) => {
         console.log(res.action);

@@ -1,38 +1,43 @@
 <table [id]="tableId" [ngClass]="tableClass">
+  <thead
+    ng2-st-thead
+    *ngIf="!isHideHeader || !isHideSubHeader"
+    [hideAddAction]="hideAddAction"
+    [grid]="grid"
+    [isAllSelected]="isAllSelected"
+    [source]="source"
+    [createConfirm]="createConfirm"
+    (create)="create.emit($event)"
+    (selectAllRows)="onSelectAllRows($event)"
+    (sort)="sort($event)"
+    (filter)="filter($event)"
+    (undoEvent)="undoEvent.emit()"
+  ></thead>
 
-  <thead ng2-st-thead *ngIf="!isHideHeader || !isHideSubHeader"
-                      [grid]="grid"
-                      [isAllSelected]="isAllSelected"
-                      [source]="source"
-                      [createConfirm]="createConfirm"
-                      (create)="create.emit($event)"
-                      (selectAllRows)="onSelectAllRows($event)"
-                      (sort)="sort($event)"
-                      (filter)="filter($event)"
-                      (undoEvent)="undoEvent.emit()">
-  </thead>
-
-  <tbody ng2-st-tbody [grid]="grid"
-                      [source]="source"
-                      [deleteConfirm]="deleteConfirm"
-                      [editConfirm]="editConfirm"
-                      [rowClassFunction]="rowClassFunction"
-                      (edit)="edit.emit($event)"
-                      (delete)="delete.emit($event)"
-                      (custom)="custom.emit($event)"
-                      (userSelectRow)="onUserSelectRow($event)"
-                      (editRowSelect)="editRowSelect($event)"
-                      (multipleSelectRow)="multipleSelectRow($event)"
-                      (rowHover)="onRowHover($event)"
-                       (undoEvent)="undoEvent.emit()">
-  </tbody>
-
+  <tbody
+    ng2-st-tbody
+    [grid]="grid"
+    [source]="source"
+    [deleteConfirm]="deleteConfirm"
+    [editConfirm]="editConfirm"
+    [rowClassFunction]="rowClassFunction"
+    (edit)="edit.emit($event)"
+    (delete)="delete.emit($event)"
+    (custom)="custom.emit($event)"
+    (userSelectRow)="onUserSelectRow($event)"
+    (editRowSelect)="editRowSelect($event)"
+    (multipleSelectRow)="multipleSelectRow($event)"
+    (rowHover)="onRowHover($event)"
+    (undoEvent)="undoEvent.emit()"
+  ></tbody>
 </table>
 
-<ng2-smart-table-pager *ngIf="isPagerDisplay"
-                        [source]="source"
-                        [disablePaginator]="disablePaginator"
-                        [perPageSelect]="perPageSelect"
-                        (changePage)="changePage($event)"
-                        (alertPagination)="alertPagination()">
+<ng2-smart-table-pager
+  *ngIf="isPagerDisplay"
+  [source]="source"
+  [disablePaginator]="disablePaginator"
+  [perPageSelect]="perPageSelect"
+  (changePage)="changePage($event)"
+  (alertPagination)="alertPagination()"
+>
 </ng2-smart-table-pager>

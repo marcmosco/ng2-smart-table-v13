@@ -25,6 +25,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   @Input() source: any;
   @Input() settings: Object = {};
   @Input() disablePaginator: boolean = false;
+  @Input() hideAddAction: boolean = false;
   @Output() rowSelect = new EventEmitter<any>();
   @Output() rowDeselect = new EventEmitter<any>();
   @Output() userRowSelect = new EventEmitter<any>();
