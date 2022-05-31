@@ -97,6 +97,17 @@ export class Grid {
     return getDeepFromObject(this.settings, name, defaultValue);
   }
 
+  getCustomActions(name: string, row: any, defaultValue?: any): any {
+    let returned = [];
+    let actions = getDeepFromObject(this.settings, name, defaultValue);
+    for (let action of actions) {
+      if (action.showAction && action.showAction(row)) {
+        returned.push(action);
+      }
+    }
+    return returned;
+  }
+
   getColumns(): Array<Column> {
     return this.dataSet.getColumns();
   }

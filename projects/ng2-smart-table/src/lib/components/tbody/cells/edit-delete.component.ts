@@ -1,4 +1,12 @@
-import {Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ChangeDetectionStrategy,
+  OnInit,
+} from '@angular/core';
 
 import { Grid } from '../../../lib/grid';
 import { Row } from '../../../lib/data-set/row';
@@ -8,16 +16,30 @@ import { DataSource } from '../../../lib/data-source/data-source';
   selector: 'ng2-st-tbody-edit-delete',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a href="#" *ngIf="isActionEdit" class="ng2-smart-action ng2-smart-action-edit-edit"
-        [innerHTML]="editRowButtonContent" (click)="onEdit($event)"></a>
-    <a href="#" *ngIf="isActionDelete" class="ng2-smart-action ng2-smart-action-delete-delete"
-        [innerHTML]="deleteRowButtonContent" (click)="onDelete($event)"></a>
-    <a href="#" *ngIf="isActionPaste" class="ng2-smart-action ng2-smart-action-paste-paste"
-       [innerHTML]="pasteRowButtonContent" (click)="onPaste($event)"></a>
+    <a
+      href="#"
+      *ngIf="isActionEdit && showActionEdit"
+      class="ng2-smart-action ng2-smart-action-edit-edit"
+      [innerHTML]="editRowButtonContent"
+      (click)="onEdit($event)"
+    ></a>
+    <a
+      href="#"
+      *ngIf="isActionDelete"
+      class="ng2-smart-action ng2-smart-action-delete-delete"
+      [innerHTML]="deleteRowButtonContent"
+      (click)="onDelete($event)"
+    ></a>
+    <a
+      href="#"
+      *ngIf="isActionPaste"
+      class="ng2-smart-action ng2-smart-action-paste-paste"
+      [innerHTML]="pasteRowButtonContent"
+      (click)="onPaste($event)"
+    ></a>
   `,
 })
-export class TbodyEditDeleteComponent implements OnChanges {
-
+export class TbodyEditDeleteComponent implements OnChanges, OnInit {
   @Input() grid: Grid;
   @Input() row: Row;
   @Input() source: DataSource;
@@ -36,6 +58,15 @@ export class TbodyEditDeleteComponent implements OnChanges {
   editRowButtonContent: string;
   deleteRowButtonContent: string;
   pasteRowButtonContent: string;
+
+  showActionEdit = true;
+
+  ngOnInit(): void {
+    let funcEdit = this.grid.getSetting('edit.showAction');
+    if (funcEdit) {
+      this.showActionEdit = funcEdit(this.row);
+    }
+  }
 
   onEdit(event: any) {
     event.preventDefault();
@@ -81,19 +112,23 @@ export class TbodyEditDeleteComponent implements OnChanges {
     } else {
       event.stopPropagation();
 
-//      this.grid.create(this.row, this.createConfirm);
+      //      this.grid.create(this.row, this.createConfirm);
       // this.grid.create(this.grid.getNewRow(), this.createConfirm);
       this.grid.createFormShown = true;
       this.grid.dataSet.rowToPaste = this.row;
     }
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.isActionEdit = this.grid.getSetting('actions.edit');
     this.isActionDelete = this.grid.getSetting('actions.delete');
     this.isActionPaste = this.grid.getSetting('actions.paste');
     this.editRowButtonContent = this.grid.getSetting('edit.editButtonContent');
-    this.deleteRowButtonContent = this.grid.getSetting('delete.deleteButtonContent');
-    this.pasteRowButtonContent = this.grid.getSetting('paste.pasteButtonContent');
+    this.deleteRowButtonContent = this.grid.getSetting(
+      'delete.deleteButtonContent'
+    );
+    this.pasteRowButtonContent = this.grid.getSetting(
+      'paste.pasteButtonContent'
+    );
   }
 }

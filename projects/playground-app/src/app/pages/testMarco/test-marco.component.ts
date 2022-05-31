@@ -16,6 +16,15 @@ export class TestMarcoComponent implements OnInit {
     selectAll: false,
     actions: {
       columnTitle: '',
+      custom: [
+        {
+          name: 'view',
+          title: 'Titolo <i></i>',
+          showAction: function (row: any) {
+            return row.data['cevento'] === 'PRE6018N';
+          },
+        },
+      ],
       edit: true,
       delete: true,
       add: true,
@@ -27,6 +36,9 @@ export class TestMarcoComponent implements OnInit {
     },
     edit: {
       confirmSave: true,
+      showAction: function (row: any) {
+        return row.data.cevento === 'PRE6007N';
+      },
     },
     delete: {
       confirmDelete: true,
