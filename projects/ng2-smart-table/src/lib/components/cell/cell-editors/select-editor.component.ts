@@ -27,7 +27,7 @@ import { Cell } from 'ng2-smart-table';
     </select>
   `,
 })
-export class SelectEditorComponent extends DefaultEditor implements OnInit {
+export class SelectEditorComponent extends DefaultEditor {
   constructor() {
     super();
   }
@@ -35,10 +35,5 @@ export class SelectEditorComponent extends DefaultEditor implements OnInit {
   onChange(event): void {
     let fun = this.cell.getColumn().getConfig().afterSelect;
     fun(this.cell.getRow(), this.cell.newValue);
-    console.log(this.cell.getRow());
-  }
-
-  ngOnInit(): void {
-    console.log(this.cell.getColumn().getConfig());
   }
 }
