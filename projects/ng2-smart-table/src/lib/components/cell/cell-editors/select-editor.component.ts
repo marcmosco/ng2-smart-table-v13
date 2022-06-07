@@ -32,6 +32,8 @@ export class SelectEditorComponent extends DefaultEditor {
 
   onChange(event): void {
     let fun = this.cell.getColumn().getConfig().afterSelect;
-    fun(this.cell.getRow(), this.cell.newValue);
+    if (fun) {
+      fun(this.cell.getRow(), this.cell.newValue);
+    }
   }
 }
