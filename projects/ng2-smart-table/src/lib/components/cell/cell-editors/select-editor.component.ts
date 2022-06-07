@@ -1,28 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { DefaultEditor } from './default-editor';
+import { Cell } from 'ng2-smart-table';
 
 @Component({
   selector: 'select-editor',
   template: `
-    <select [ngClass]="inputClass"
-            class="form-control"
-            [(ngModel)]="cell.newValue"
-            [name]="cell.getId()"
-            [disabled]="!cell.isEditable()"
-            (click)="onClick.emit($event)"
-            (keydown.enter)="onEdited.emit($event)"
-            (keydown.esc)="onStopEditing.emit()">
-
-        <option *ngFor="let option of cell.getColumn().getConfig()?.list" [value]="option.value"
-                [selected]="option.value === cell.getValue()">{{ option.title }}
-        </option>
+    <select
+      [ngClass]="inputClass"
+      class="form-control"
+      [(ngModel)]="cell.newValue"
+      [name]="cell.getId()"
+      [disabled]="!cell.isEditable()"
+      (click)="onClick.emit($event)"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()"
+      (change)="onChange($event)"
+    >
+      <option
+        *ngFor="let option of cell.getColumn().getConfig()?.list"
+        [value]="option.value"
+        [selected]="option.value === cell.getValue()"
+      >
+        {{ option.title }}
+      </option>
     </select>
-    `,
+  `,
 })
-export class SelectEditorComponent extends DefaultEditor {
-
+export class SelectEditorComponent extends DefaultEditor implements OnInit {
   constructor() {
     super();
+  }
+
+  onChange(event): void {
+    let fun = this.cell.getColumn().getConfig().afterSelect;
+    fun(this.cell.getRow(), this.cell.newValue);
+    console.log(this.cell.getRow());
+  }
+
+  ngOnInit(): void {
+    console.log(this.cell.getColumn().getConfig());
   }
 }

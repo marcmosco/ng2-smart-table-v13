@@ -83,9 +83,31 @@ export class TestMarcoComponent implements OnInit {
           config: {
             selectText: '           ',
             list: [
+              { value: '', title: '' },
               { value: 'S', title: 'S' },
               { value: 'N', title: 'N' },
             ],
+            afterSelect: function (row: any, val: any) {
+              let cell1, cell2;
+              for (let cell of row.cells) {
+                if (cell.column['id'] === 'sdescr') {
+                  cell1 = cell;
+                } else if (cell.column['id'] === 'cevento') {
+                  cell2 = cell;
+                }
+              }
+              if (val === 'S') {
+                [cell1['newValue'], cell2['newValue']] = [
+                  cell2['value'],
+                  cell1['value'],
+                ];
+              } else {
+                [cell1['newValue'], cell2['newValue']] = [
+                  cell1['value'],
+                  cell2['value'],
+                ];
+              }
+            },
           },
         },
       },
@@ -108,6 +130,12 @@ export class TestMarcoComponent implements OnInit {
           }
         },
       },
+    },
+    pager: {
+      display: true,
+      page: 1,
+      perPage: 10,
+      position: 'up',
     },
   };
 

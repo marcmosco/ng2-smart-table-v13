@@ -62,9 +62,9 @@ export class TbodyEditDeleteComponent implements OnChanges, OnInit {
   showActionEdit = true;
 
   ngOnInit(): void {
-    let funcEdit = this.grid.getSetting('edit.showAction');
-    if (funcEdit) {
-      this.showActionEdit = funcEdit(this.row);
+    let funcEdit = this.grid.getSetting('edit');
+    if (funcEdit && funcEdit.showAction) {
+      this.showActionEdit = funcEdit.showAction(this.row);
     }
   }
 

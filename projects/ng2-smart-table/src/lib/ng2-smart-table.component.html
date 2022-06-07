@@ -1,3 +1,12 @@
+<ng2-smart-table-pager
+  *ngIf="isPagerDisplay && pagerPosition === 'up'"
+  [source]="source"
+  [disablePaginator]="disablePaginator"
+  [perPageSelect]="perPageSelect"
+  (changePage)="changePage($event)"
+  (alertPagination)="alertPagination()"
+>
+</ng2-smart-table-pager>
 <table [id]="tableId" [ngClass]="tableClass">
   <thead
     ng2-st-thead
@@ -33,7 +42,7 @@
 </table>
 
 <ng2-smart-table-pager
-  *ngIf="isPagerDisplay"
+  *ngIf="isPagerDisplay && pagerPosition === 'down'"
   [source]="source"
   [disablePaginator]="disablePaginator"
   [perPageSelect]="perPageSelect"
