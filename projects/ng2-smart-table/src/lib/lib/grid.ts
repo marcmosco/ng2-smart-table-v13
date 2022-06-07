@@ -101,7 +101,9 @@ export class Grid {
     let returned = [];
     let actions = getDeepFromObject(this.settings, name, defaultValue);
     for (let action of actions) {
-      if (action.showAction && action.showAction(row)) {
+      if (action.showAction) {
+        action.showAction(row) ? returned.push(action) : '';
+      } else {
         returned.push(action);
       }
     }
