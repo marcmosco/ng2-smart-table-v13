@@ -1,7 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { DefaultEditor } from './default-editor';
-import { Cell } from 'ng2-smart-table';
 
 @Component({
   selector: 'select-editor',
