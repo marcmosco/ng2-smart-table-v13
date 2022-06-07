@@ -14,7 +14,7 @@ import { Cell } from '../../../lib/data-set/cell';
 @Component({
   selector: '[ng2-st-thead-form-row]',
   template: `
-    <td *ngIf=""></td>
+    <td *ngIf="this.grid.getSetting('selectMode') === 'multi'"></td>
     <td *ngIf="showActionColumnLeft" class="ng2-smart-actions">
       <ng2-st-actions
         [isPasting]="isPasting"
