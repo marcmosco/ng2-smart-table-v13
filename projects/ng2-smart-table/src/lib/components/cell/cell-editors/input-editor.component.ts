@@ -9,9 +9,7 @@ import { DefaultEditor } from './default-editor';
     <input
       [ngClass]="inputClass"
       class="form-control"
-      [(ngModel)]="
-        cell.getDefaultValue() ? cell.getDefaultValue() : cell.newValue
-      "
+      [(ngModel)]="cell.newValue"
       [name]="cell.getId()"
       [placeholder]="cell.getTitle()"
       [disabled]="isDisabled()"
@@ -22,11 +20,15 @@ import { DefaultEditor } from './default-editor';
     />
   `,
 })
-export class InputEditorComponent extends DefaultEditor {
+export class InputEditorComponent extends DefaultEditor implements OnInit {
   constructor() {
     super();
   }
-
+  ngOnInit() {
+    if (!this.cell.newValue && this.cell.getDefaultValue() !== '') {
+      this.cell.newValue = this.cell.getDefaultValue();
+    }
+  }
   isDisabled() {
     if (this.isInPasting) {
       return !this.cell.isPasteble();

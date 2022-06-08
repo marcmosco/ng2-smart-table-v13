@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DefaultEditor } from './default-editor';
 
 @Component({
@@ -25,11 +25,15 @@ import { DefaultEditor } from './default-editor';
     </select>
   `,
 })
-export class SelectEditorComponent extends DefaultEditor {
+export class SelectEditorComponent extends DefaultEditor implements OnInit {
   constructor() {
     super();
   }
-
+  ngOnInit() {
+    if (!this.cell.newValue && this.cell.getDefaultValue() !== '') {
+      this.cell.newValue = this.cell.getDefaultValue();
+    }
+  }
   onChange(event): void {
     let fun = this.cell.getColumn().getConfig().afterSelect;
     if (fun) {
