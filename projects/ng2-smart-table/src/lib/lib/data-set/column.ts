@@ -1,7 +1,6 @@
 import { DataSet } from './data-set';
 
 export class Column {
-
   title: string = '';
   defaultValue: string = '';
   maxLength: number = 500;
@@ -11,20 +10,33 @@ export class Column {
   hide: boolean = false;
   isSortable: boolean = false;
   isEditable: boolean = true;
-  isPasteble:boolean=true;
+  isPasteble: boolean = true;
   isAddable: boolean = true;
   isFilterable: boolean = false;
+  isReadonly: boolean = false;
   sortDirection: string = '';
   defaultSortDirection: string = '';
-  editor: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
-  filter: { type: string, config: any, component: any } = { type: '', config: {}, component: null };
+  editor: { type: string; config: any; component: any } = {
+    type: '',
+    config: {},
+    component: null,
+  };
+  filter: { type: string; config: any; component: any } = {
+    type: '',
+    config: {},
+    component: null,
+  };
   renderComponent: any = null;
   compareFunction: Function;
   valuePrepareFunction: Function;
   filterFunction: Function;
   onComponentInitFunction: Function;
 
-  constructor(public id: string, protected settings: any, protected dataSet: DataSet) {
+  constructor(
+    public id: string,
+    protected settings: any,
+    protected dataSet: DataSet
+  ) {
     this.process();
   }
 
@@ -59,7 +71,10 @@ export class Column {
   protected process() {
     this.title = this.settings['title'];
     this.defaultValue = this.settings['defaultValue'];
-    this.maxLength = typeof this.settings['maxLength'] === 'undefined'?500:this.settings['maxLength'];
+    this.maxLength =
+      typeof this.settings['maxLength'] === 'undefined'
+        ? 500
+        : this.settings['maxLength'];
     this.class = this.settings['class'];
     this.width = this.settings['width'];
     this.hide = !!this.settings['hide'];
@@ -68,13 +83,34 @@ export class Column {
     this.filter = this.settings['filter'];
     this.renderComponent = this.settings['renderComponent'];
 
-    this.isFilterable = typeof this.settings['filter'] === 'undefined' ? true : !!this.settings['filter'];
-    this.defaultSortDirection = ['asc', 'desc']
-      .indexOf(this.settings['sortDirection']) !== -1 ? this.settings['sortDirection'] : '';
-    this.isSortable = typeof this.settings['sort'] === 'undefined' ? true : !!this.settings['sort'];
-    this.isEditable = typeof this.settings['editable'] === 'undefined' ? true : !!this.settings['editable'];
-    this.isAddable=typeof this.settings['addable'] === 'undefined' ? true : !!this.settings['addable'];
-    this.isPasteble = typeof this.settings['pasteble'] === 'undefined' ? true : !!this.settings['pasteble'];
+    this.isFilterable =
+      typeof this.settings['filter'] === 'undefined'
+        ? true
+        : !!this.settings['filter'];
+    this.defaultSortDirection =
+      ['asc', 'desc'].indexOf(this.settings['sortDirection']) !== -1
+        ? this.settings['sortDirection']
+        : '';
+    this.isSortable =
+      typeof this.settings['sort'] === 'undefined'
+        ? true
+        : !!this.settings['sort'];
+    this.isEditable =
+      typeof this.settings['editable'] === 'undefined'
+        ? true
+        : !!this.settings['editable'];
+    this.isAddable =
+      typeof this.settings['addable'] === 'undefined'
+        ? true
+        : !!this.settings['addable'];
+    this.isPasteble =
+      typeof this.settings['pasteble'] === 'undefined'
+        ? true
+        : !!this.settings['pasteble'];
+    this.isReadonly =
+      typeof this.settings['readonly'] === 'undefined'
+        ? false
+        : !!this.settings['readonly'];
     this.sortDirection = this.prepareSortDirection();
 
     this.compareFunction = this.settings['compareFunction'];

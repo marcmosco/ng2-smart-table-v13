@@ -66,4 +66,8 @@ export class Cell {
   isPasteble(): boolean {
     return this.getColumn().isPasteble;
   }
+
+  isReadonly(): boolean {
+    return this.getColumn().isReadonly;
+  }
 }
