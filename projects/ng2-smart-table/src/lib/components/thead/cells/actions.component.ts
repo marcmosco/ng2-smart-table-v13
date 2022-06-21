@@ -4,12 +4,12 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-} from "@angular/core";
+} from '@angular/core';
 
-import { Grid } from "../../../lib/grid";
+import { Grid } from '../../../lib/grid';
 
 @Component({
-  selector: "ng2-st-actions",
+  selector: 'ng2-st-actions',
   template: `
     <a
       href="#"
@@ -17,9 +17,10 @@ import { Grid } from "../../../lib/grid";
       [innerHTML]="isPasting ? createPasteButtonContent : createButtonContent"
       (click)="onOk($event)"
     ></a>
+
     <a
       href="#"
-      class="ng2-smart-action ng2-smart-action-add-cancel"
+      class="ng2-smart-action ng2-smart-action-clean-filters"
       [innerHTML]="isPasting ? cancelPasteButtonContent : cancelButtonContent"
       (click)="cancel($event)"
     ></a>
@@ -38,14 +39,14 @@ export class ActionsComponent implements OnChanges {
   createPasteButtonContent: string;
 
   ngOnChanges() {
-    this.createButtonContent = this.grid.getSetting("add.createButtonContent");
-    this.cancelButtonContent = this.grid.getSetting("add.cancelButtonContent");
+    this.createButtonContent = this.grid.getSetting('add.createButtonContent');
+    this.cancelButtonContent = this.grid.getSetting('add.cancelButtonContent');
 
     this.createPasteButtonContent = this.grid.getSetting(
-      "paste.createButtonContent"
+      'paste.createButtonContent'
     );
     this.cancelPasteButtonContent = this.grid.getSetting(
-      "paste.cancelButtonContent"
+      'paste.cancelButtonContent'
     );
   }
 

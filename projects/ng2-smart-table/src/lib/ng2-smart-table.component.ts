@@ -40,6 +40,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   @Output() alert: EventEmitter<any> = new EventEmitter<any>();
   @Output() undoEvent = new EventEmitter<any>();
   @Output() editRow = new EventEmitter<any>();
+  @Output() cleanFilters = new EventEmitter<any>();
 
   tableClass: string;
   tableId: string;
@@ -64,6 +65,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
     switchPageToSelectedRowPage: false,
     hideHeader: false,
     hideSubHeader: false,
+    cleanFiltersButtonContent: 'Clean Filters',
     actions: {
       columnTitle: 'Actions',
       add: true,

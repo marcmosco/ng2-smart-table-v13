@@ -21,6 +21,12 @@ import { DataSource } from '../../../lib/data-source/data-source';
       [innerHTML]="addNewButtonContent"
       (click)="onAdd($event)"
     ></a>
+    <a
+      href="#"
+      class="ng2-smart-action ng2-smart-action-clean-filters"
+      [innerHTML]="cleanFiltersButtonContent"
+      (click)="onCleanFilters($event)"
+    ></a>
   `,
 })
 export class AddButtonComponent implements AfterViewInit, OnChanges {
@@ -28,9 +34,11 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   @Input() grid: Grid;
   @Input() source: DataSource;
   @Output() create = new EventEmitter<any>();
+  @Output() cleanFilters = new EventEmitter<any>();
 
   isActionAdd: boolean;
   addNewButtonContent: string;
+  cleanFiltersButtonContent: string;
 
   constructor(private ref: ElementRef) {}
 
@@ -44,6 +52,9 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   ngOnChanges() {
     this.isActionAdd = this.grid.getSetting('actions.add');
     this.addNewButtonContent = this.grid.getSetting('add.addButtonContent');
+    this.cleanFiltersButtonContent = this.grid.getSetting(
+      'cleanFiltersButtonContent'
+    );
   }
 
   onAdd(event: any) {
@@ -56,5 +67,11 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
     } else {
       this.grid.createFormShown = true;
     }
+  }
+
+  onCleanFilters(event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.cleanFilters.emit();
   }
 }

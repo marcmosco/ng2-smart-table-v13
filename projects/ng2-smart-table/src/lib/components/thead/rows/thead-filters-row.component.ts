@@ -12,6 +12,7 @@ import { Column } from '../../../lib/data-set/column';
 
 @Component({
   selector: '[ng2-st-thead-filters-row]',
+  styleUrls: ['./thead-filters-row.component.scss'],
   template: `
     <th *ngIf="isMultiSelectVisible"></th>
     <th
@@ -19,6 +20,7 @@ import { Column } from '../../../lib/data-set/column';
       *ngIf="showActionColumnLeft"
       [grid]="grid"
       (create)="create.emit($event)"
+      (cleanFilters)="onCleanFilters($event)"
     ></th>
     <th
       *ngFor="let column of getVisibleColumns(grid.getColumns())"
@@ -39,6 +41,7 @@ import { Column } from '../../../lib/data-set/column';
       [source]="source"
       [hideAddAction]="hideAddAction"
       (create)="create.emit($event)"
+      (cleanFilters)="onCleanFilters($event)"
     ></th>
   `,
 })
@@ -48,6 +51,7 @@ export class TheadFitlersRowComponent implements OnChanges {
   @Input() hideAddAction: boolean;
   @Output() create = new EventEmitter<any>();
   @Output() filter = new EventEmitter<any>();
+  @Output() cleanFilters = new EventEmitter<any>();
 
   isMultiSelectVisible: boolean;
   showActionColumnLeft: boolean;
@@ -63,5 +67,9 @@ export class TheadFitlersRowComponent implements OnChanges {
 
   getVisibleColumns(columns: Array<Column>): Array<Column> {
     return (columns || []).filter((column: Column) => !column.hide);
+  }
+
+  onCleanFilters(event: any) {
+    this.cleanFilters.emit();
   }
 }

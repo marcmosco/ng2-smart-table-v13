@@ -1,3 +1,8 @@
 .ng2-smart-th{
   min-width: 70px;
 }
+::ng-deep ng2-st-add-button {
+  a:first-child {
+    margin-right: 0.25rem;
+  }
+}

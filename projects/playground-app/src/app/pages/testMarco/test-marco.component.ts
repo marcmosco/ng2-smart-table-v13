@@ -12,8 +12,6 @@ import * as _ from 'lodash';
 export class TestMarcoComponent implements OnInit {
   settings = {
     noDataMessage: 'Dati non disponibili',
-    selectMode: 'multi',
-    selectAll: false,
     actions: {
       columnTitle: '',
       custom: [
@@ -36,9 +34,6 @@ export class TestMarcoComponent implements OnInit {
     },
     edit: {
       confirmSave: true,
-      showAction: function (row: any) {
-        return row.data.cevento === 'PRE6007N';
-      },
     },
     delete: {
       confirmDelete: true,
@@ -50,92 +45,154 @@ export class TestMarcoComponent implements OnInit {
       mode: 'inline',
     },
     columns: {
-      cevento: {
-        width: '200px',
+      codiceCausale: {
+        width: '120px',
+        title: 'Causale',
         editable: false,
-        title: 'Codice Evento',
-        maxLength: 8,
       },
-      sdescr: {
-        width: '200px',
-        title: 'Descrizione',
-        maxLength: 150,
+      codiceAttributo1: {
+        width: '120px',
+        title: 'Attributo 1',
+        editable: false,
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
       },
-      cchiusu: {
-        width: '200px',
-        title: 'Codice Chiusura',
+      codiceAttributo2: {
+        width: '120px',
+        title: 'Attributo 2',
+        editable: false,
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
       },
-      flagias: {
-        width: '60px',
-        title: 'Flag IAS',
+      codiceAttributo3: {
+        width: '120px',
+        editable: false,
+        title: 'Attributo 3',
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
+      },
+      codiceAttributo4: {
+        width: '120px',
+        editable: false,
+        title: 'Attributo 4',
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
+      },
+      segno: {
+        width: '40px',
+        title: 'Segno',
+        defaultValue: '+',
         filter: {
           type: 'list',
           config: {
             selectText: '           ',
             list: [
-              { value: 'S', title: 'S' },
-              { value: 'N', title: 'N' },
+              { value: '+', title: '+' },
+              { value: '-', title: '-' },
             ],
           },
         },
+        valuePrepareFunction: (created: any, row: any) => {
+          if (!created) {
+            return '+';
+          }
+          return created;
+        },
         editor: {
           type: 'list',
+
           config: {
             selectText: '           ',
             list: [
-              { value: '', title: '' },
-              { value: 'S', title: 'S' },
-              { value: 'N', title: 'N' },
+              { value: '+', title: '+' },
+              { value: '-', title: '-' },
             ],
             afterSelect: function (row: any, val: any) {
-              let cell1, cell2;
-              for (let cell of row.cells) {
-                if (cell.column['id'] === 'sdescr') {
-                  cell1 = cell;
-                } else if (cell.column['id'] === 'cevento') {
-                  cell2 = cell;
+              let cellDare, cellAvere;
+              for (const cell of row.cells) {
+                if (cell.column['id'] === 'codCogeDare') {
+                  cellDare = cell;
+                } else if (cell.column['id'] === 'codCogeAvere') {
+                  cellAvere = cell;
                 }
               }
-              if (val === 'S') {
-                [cell1['newValue'], cell2['newValue']] = [
-                  cell2['value'],
-                  cell1['value'],
+              if (val === '+') {
+                [cellDare['newValue'], cellAvere['newValue']] = [
+                  cellDare['value'],
+                  cellAvere['value'],
                 ];
               } else {
-                [cell1['newValue'], cell2['newValue']] = [
-                  cell1['value'],
-                  cell2['value'],
+                [cellDare['newValue'], cellAvere['newValue']] = [
+                  cellAvere['value'],
+                  cellDare['value'],
                 ];
               }
             },
           },
         },
       },
-      dinival: {
-        addable: false,
-        editable: false,
-        pasteble: false,
-        width: '150px',
-        title: 'D Ini Validità',
-        defaultValue: this.datePipe.transform(new Date(), 'dd/MM/yyyy'),
+      importoEu: {
+        width: '120px',
+        title: 'Importo Euro',
+        type: 'html',
+        sort: false,
 
-        valuePrepareFunction: (created: any) => {
-          if (created) {
-            return this.datePipe.transform(
-              new Date(created),
-              'dd/MM/yyyy HH:mm'
-            );
-          } else {
-            return null;
-          }
+        filter: false,
+      },
+      importoDiv: {
+        width: '120px',
+        title: 'Importo Divisa',
+        sort: false,
+        filter: false,
+
+        type: 'html',
+      },
+      codCogeDare: {
+        width: '130px',
+        editable: false,
+        title: 'COGE Dare',
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
+      },
+      codCogeAvere: {
+        width: '130px',
+        editable: false,
+        title: 'COGE Avere',
+        filter: {
+          config: {
+            delay: 500,
+          },
+        },
+      },
+
+      codRegolaDataContabile: {
+        width: '120px',
+        editable: false,
+        title: 'Regola Data Contabile',
+        filter: {
+          config: {
+            delay: 500,
+          },
         },
       },
     },
-    pager: {
-      display: true,
-      page: 1,
-      perPage: 10,
-      position: 'up',
+    attr: {
+      class: 'table table-bordered',
     },
   };
 
@@ -243,70 +300,35 @@ export class TestMarcoComponent implements OnInit {
 
   constructor(http: HttpClient, public datePipe: DatePipe) {
     this.source = new ServerDataSource(http, {
-      endPoint: 'http://localhost:8090/eventi/ricerca',
+      endPoint:
+        'http://localhost:8090/singoloDataload/listaRegoleContabiliEvento?codiceEvento.equals=ACQ6000N',
       pagerPageKey: 'page',
       pagerLimitKey: 'size',
       perPage: 5,
-      filterFieldKey: '#field#.contains',
       sortFieldKey: 'sort',
-      //'https://jsonplaceholder.typicode.com/photos',
+      filterFieldKey: '#field#.contains',
+      pk: [
+        'codiceCausale',
+        'codiceAttributo1',
+        'codiceAttributo2',
+        'codiceAttributo3',
+        'codiceAttributo4',
+      ],
+      defaultSort: [
+        'pk.codiceCausale,pk.codiceAttributo1,pk.codiceAttributo2,pk.codiceAttributo3,pk.codiceAttributo4,asc',
+      ],
     });
   }
-  /*
-   ngOnInit(): void {
-     /!* this.source.onUpdateStarted().subscribe(() => {
-       this.isLoadingData = true;
-     });*!/
 
-     this.source.onChanged().subscribe({
-       next: (res) => {
-         console.log(res);
-         this.isLoadingData = false;
-       },
-       error: (err) => {
-         this.isLoadingData = false;
-       },
-     });
-   }
+  onSaveConfirm(event) {
+    event.data.importoEu = event.newData.importoEu;
+    event.data.importoDiv = event.newData.importoDiv;
+    event.data.segno = event.newData.segno;
+    //this.addToCacheList(event.newData);
 
-   onCustom(event) {
-     console.log(
-       `Custom event '${event.action}' fired on row №: ${event.data.id}`
-     );
-
-     event.source.append(event.data);
-   }
-
-   onCreateConfirm(event) {
-     if (window.confirm("Are you sure you want to create?")) {
-       //console.log(event.newData);
-
-       //call this line inside a post result
-       event.confirm.resolve(event.newData);
-     } else {
-       event.confirm.reject();
-     }
-   }
-
-   logga(event){
-     console.log(event.newData);
-   }*/
-
-  public onUserRowSelect(event: any) {
-    if (event.isSelected) {
-      let obj = this.currentSelected.find((ele) => _.isEqual(ele, event.data));
-      if (!obj) {
-        this.currentSelected = this.currentSelected.concat([event.data]);
-      }
-    } else {
-      let index = this.currentSelected.findIndex((ele) =>
-        _.isEqual(ele, event.data)
-      );
-      if (index > -1) {
-        this.currentSelected.splice(index, 1);
-      }
-    }
-
-    //    console.log(this.currentSelected);
+    event.confirm.resolve();
+  }
+  onClean() {
+    this.source.reset();
   }
 }

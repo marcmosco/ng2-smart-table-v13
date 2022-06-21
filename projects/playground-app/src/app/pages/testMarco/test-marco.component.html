@@ -1,7 +1,8 @@
 <ng2-smart-table
   [settings]="settings"
   [source]="source"
-  (userRowSelect)="onUserRowSelect($event)"
+  (editConfirm)="onSaveConfirm($event)"
+  (cleanFilters)="onClean()"
 ></ng2-smart-table>
 
 {{ hideAdd }}
