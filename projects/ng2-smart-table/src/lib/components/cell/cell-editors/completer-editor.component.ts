@@ -19,6 +19,7 @@ import { DefaultEditor } from './default-editor';
         cell.getColumn().getConfig().completer.placeholder || 'Start typing...'
       "
       (selected)="onEditedCompleter($event)"
+      (blur)="onBlurEdited($event)"
     >
     </ng2-completer>
   `,
@@ -68,5 +69,15 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
       fun(this.cell.getRow(), this.cell.newValue);
     }
     return false;
+  }
+
+  onBlurEdited(event: any) {
+    const config = this.cell.getColumn().getConfig().completer;
+    let fun = this.cell.getColumn().getConfig().afterSelect;
+
+    this.cell.newValue = null;
+    if (fun) {
+      fun(this.cell.getRow(), this.cell.newValue);
+    }
   }
 }
