@@ -22,6 +22,7 @@ import { DataSource } from '../../../lib/data-source/data-source';
       (click)="onAdd($event)"
     ></a>
     <a
+      *ngIf="isCleanFilters"
       href="#"
       class="ng2-smart-action ng2-smart-action-clean-filters"
       [innerHTML]="cleanFiltersButtonContent"
@@ -37,6 +38,7 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   @Output() cleanFilters = new EventEmitter<any>();
 
   isActionAdd: boolean;
+  isCleanFilters: boolean;
   addNewButtonContent: string;
   cleanFiltersButtonContent: string;
 
@@ -51,9 +53,11 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges() {
     this.isActionAdd = this.grid.getSetting('actions.add');
+    this.isCleanFilters = this.grid.getSetting('actions.cleanFilters');
+
     this.addNewButtonContent = this.grid.getSetting('add.addButtonContent');
     this.cleanFiltersButtonContent = this.grid.getSetting(
-      'cleanFiltersButtonContent'
+      'cleanFilters.cleanFiltersButtonContent'
     );
   }
 

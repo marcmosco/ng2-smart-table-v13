@@ -32,6 +32,7 @@ export class TestMarcoComponent implements OnInit {
       delete: true,
       add: true,
       paste: true,
+      cleanFilters: true,
       position: 'right',
     },
     paste: {

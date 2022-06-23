@@ -72,6 +72,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
       add: true,
       edit: true,
       delete: true,
+      cleanFilters: false,
       custom: [],
       position: 'left', // left|right
     },
@@ -102,6 +103,9 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
     delete: {
       deleteButtonContent: 'Delete',
       confirmDelete: false,
+    },
+    cleanFilters: {
+      cleanFiltersButtonContent: 'provaprova',
     },
     attr: {
       id: '',
