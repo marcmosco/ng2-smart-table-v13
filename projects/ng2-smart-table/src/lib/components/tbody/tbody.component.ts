@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Grid } from '../../lib/grid';
 import { DataSource } from '../../lib/data-source/data-source';
@@ -10,13 +10,13 @@ import { Cell } from '../../lib/data-set/cell';
   templateUrl: './tbody.component.html',
 })
 export class Ng2SmartTableTbodyComponent {
-
   @Input() grid: Grid;
   @Input() source: DataSource;
   @Input() deleteConfirm: EventEmitter<any>;
   @Input() editConfirm: EventEmitter<any>;
-  @Input() rowClassFunction: Function;
+  @Input() customEditConfirm: EventEmitter<any>;
 
+  @Input() rowClassFunction: Function;
   @Output() save = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
@@ -39,9 +39,16 @@ export class Ng2SmartTableTbodyComponent {
   isActionPaste: boolean;
   isActionDelete: boolean;
   noDataMessage: boolean;
+  customEditingActionName: string;
 
   get tableColumnsCount() {
-    const actionColumns = this.isActionAdd || this.isActionEdit || this.isActionDelete || this.isActionPaste ? 1 : 0;
+    const actionColumns =
+      this.isActionAdd ||
+      this.isActionEdit ||
+      this.isActionDelete ||
+      this.isActionPaste
+        ? 1
+        : 0;
     return this.grid.getColumns().length + actionColumns;
   }
 
@@ -60,5 +67,23 @@ export class Ng2SmartTableTbodyComponent {
 
   getVisibleCells(cells: Array<Cell>): Array<Cell> {
     return (cells || []).filter((cell: Cell) => !cell.getColumn().hide);
+  }
+
+  onCustom(event) {
+    if (!!event.editing) {
+      this.customEditingActionName = event.action;
+    } else {
+      this.customEditingActionName = null;
+    }
+    this.custom.emit(event);
+  }
+
+  onCleanCustomAction() {
+    this.customEditingActionName = null;
+  }
+
+  onUndo() {
+    this.onCleanCustomAction();
+    this.undoEvent.emit();
   }
 }

@@ -22,6 +22,11 @@ export class TestMarcoComponent implements OnInit {
             return row.data['cevento'] === 'PRE6018N';
           },
         },
+        {
+          name: 'mod',
+          title: 'Modifica periodi <i></i>',
+          isActionEditing: true,
+        },
       ],
       edit: true,
       delete: true,
@@ -321,6 +326,7 @@ export class TestMarcoComponent implements OnInit {
   }
 
   onSaveConfirm(event) {
+    console.log('Normale edit');
     event.data.importoEu = event.newData.importoEu;
     event.data.importoDiv = event.newData.importoDiv;
     event.data.segno = event.newData.segno;
@@ -328,7 +334,12 @@ export class TestMarcoComponent implements OnInit {
 
     event.confirm.resolve();
   }
+
   onClean() {
     this.source.reset();
+  }
+
+  onCustomEdit(event) {
+    console.log('custom edit', event);
   }
 }

@@ -18,7 +18,11 @@ import { Grid } from '../../../lib/grid';
       href="#"
       class="ng2-smart-action ng2-smart-action-custom-custom"
       [innerHTML]="action.title"
-      (click)="onCustom(action, $event)"
+      (click)="
+        action.isActionEditing
+          ? onCustomEditingAction(action, $event)
+          : onCustom(action, $event)
+      "
     ></a>
   `,
 })
@@ -27,6 +31,9 @@ export class TbodyCustomComponent {
   @Input() row: Row;
   @Input() source: any;
   @Output() custom = new EventEmitter<any>();
+
+  @Output() edit = new EventEmitter<any>();
+  @Output() editRowSelect = new EventEmitter<any>();
 
   onCustom(action: any, event: any) {
     event.preventDefault();
@@ -37,5 +44,19 @@ export class TbodyCustomComponent {
       data: this.row.getData(),
       source: this.source,
     });
+  }
+
+  onCustomEditingAction(action: any, event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.editRowSelect.emit(this.row);
+
+    this.custom.emit({
+      action: action.name,
+      editing: action.isActionEditing,
+    });
+
+    this.grid.edit(this.row);
   }
 }

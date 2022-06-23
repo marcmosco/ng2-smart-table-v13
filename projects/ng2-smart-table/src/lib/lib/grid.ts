@@ -170,7 +170,11 @@ export class Grid {
     }
   }
 
-  save(row: Row, confirmEmitter: EventEmitter<any>) {
+  save(
+    row: Row,
+    confirmEmitter: EventEmitter<any>,
+    customEditingActionName?: string
+  ) {
     const deferred = new Deferred();
     deferred.promise
       .then((newData) => {
@@ -193,7 +197,15 @@ export class Grid {
         // doing nothing
       });
 
-    if (this.getSetting('edit.confirmSave')) {
+    if (!!customEditingActionName) {
+      confirmEmitter.emit({
+        data: row.getData(),
+        newData: row.getNewData(),
+        source: this.source,
+        confirm: deferred,
+        customEditingActionName: customEditingActionName,
+      });
+    } else if (this.getSetting('edit.confirmSave')) {
       confirmEmitter.emit({
         data: row.getData(),
         newData: row.getNewData(),
