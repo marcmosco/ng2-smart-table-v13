@@ -25,7 +25,7 @@ import { DataSource } from '../../../lib/data-source/data-source';
     ></a>
     <a
       href="#"
-      *ngIf="isActionDelete"
+      *ngIf="isActionDelete && showActionDelete"
       class="ng2-smart-action ng2-smart-action-delete-delete"
       [innerHTML]="deleteRowButtonContent"
       (click)="onDelete($event)"
@@ -60,11 +60,17 @@ export class TbodyEditDeleteComponent implements OnChanges, OnInit {
   pasteRowButtonContent: string;
 
   showActionEdit = true;
+  showActionDelete = true;
 
   ngOnInit(): void {
     let funcEdit = this.grid.getSetting('edit');
     if (funcEdit && funcEdit.showAction) {
       this.showActionEdit = funcEdit.showAction(this.row);
+    }
+
+    let funcDel = this.grid.getSetting('delete');
+    if (funcDel && funcDel.showAction) {
+      this.showActionDelete = funcDel.showAction(this.row);
     }
   }
 
