@@ -10,6 +10,7 @@ export class Column {
   hide: boolean = false;
   isSortable: boolean = false;
   isEditable: boolean = true;
+  isCustomEditable: boolean = false;
   isPasteble: boolean = true;
   isAddable: boolean = true;
   isFilterable: boolean = false;
@@ -99,6 +100,10 @@ export class Column {
       typeof this.settings['editable'] === 'undefined'
         ? true
         : !!this.settings['editable'];
+    this.isCustomEditable =
+      typeof this.settings['customEditable'] === 'undefined'
+        ? false
+        : !!this.settings['customEditable'];
     this.isAddable =
       typeof this.settings['addable'] === 'undefined'
         ? true

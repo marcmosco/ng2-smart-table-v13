@@ -19,6 +19,7 @@ import { Row } from '../../lib/data-set/row';
       [inputClass]="inputClass"
       (edited)="onEdited($event)"
       [isInPasting]="isInPasting"
+      [isCustomEditing]="isCustomEditing"
     >
     </table-cell-edit-mode>
   `,
@@ -34,7 +35,7 @@ export class CellComponent {
   @Input() mode: string = 'inline';
   @Input() isInEditing: boolean = false;
   @Input() isInPasting: boolean = false;
-
+  @Input() isCustomEditing: boolean = false;
   @Output() edited = new EventEmitter<any>();
 
   onEdited(event: any) {

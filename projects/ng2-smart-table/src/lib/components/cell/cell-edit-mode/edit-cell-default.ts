@@ -9,6 +9,7 @@ export class EditCellDefault {
   @Input() cell: Cell;
   @Input() inputClass: string = '';
   @Input() isInPasting: boolean = false;
+  @Input() isCustomEditing: boolean = false;
   @Output() edited = new EventEmitter<any>();
 
   onEdited(event: any): boolean {

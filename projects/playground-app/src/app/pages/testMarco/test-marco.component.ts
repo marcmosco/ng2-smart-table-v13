@@ -56,12 +56,12 @@ export class TestMarcoComponent implements OnInit {
       codiceCausale: {
         width: '120px',
         title: 'Causale',
-        editable: false,
+        customEditable: true,
       },
       codiceAttributo1: {
         width: '120px',
         title: 'Attributo 1',
-        editable: false,
+        customEditable: true,
         filter: {
           config: {
             delay: 500,
@@ -71,7 +71,7 @@ export class TestMarcoComponent implements OnInit {
       codiceAttributo2: {
         width: '120px',
         title: 'Attributo 2',
-        editable: false,
+
         filter: {
           config: {
             delay: 500,
@@ -80,7 +80,7 @@ export class TestMarcoComponent implements OnInit {
       },
       codiceAttributo3: {
         width: '120px',
-        editable: false,
+
         title: 'Attributo 3',
         filter: {
           config: {
@@ -90,7 +90,7 @@ export class TestMarcoComponent implements OnInit {
       },
       codiceAttributo4: {
         width: '120px',
-        editable: false,
+
         title: 'Attributo 4',
         filter: {
           config: {
@@ -169,7 +169,7 @@ export class TestMarcoComponent implements OnInit {
       },
       codCogeDare: {
         width: '130px',
-        editable: false,
+
         title: 'COGE Dare',
         filter: {
           config: {
@@ -179,7 +179,7 @@ export class TestMarcoComponent implements OnInit {
       },
       codCogeAvere: {
         width: '130px',
-        editable: false,
+
         title: 'COGE Avere',
         filter: {
           config: {
@@ -190,7 +190,7 @@ export class TestMarcoComponent implements OnInit {
 
       codRegolaDataContabile: {
         width: '120px',
-        editable: false,
+
         title: 'Regola Data Contabile',
         filter: {
           config: {

@@ -6,21 +6,30 @@ import { DefaultEditor } from './default-editor';
   selector: 'textarea-editor',
   styleUrls: ['./editor.component.scss'],
   template: `
-    <textarea [ngClass]="inputClass"
-              class="form-control"
-              [(ngModel)]="cell.newValue"
-              [name]="cell.getId()"
-              [disabled]="!cell.isEditable()"
-              [placeholder]="cell.getTitle()"
-              (click)="onClick.emit($event)"
-              (keydown.enter)="onEdited.emit($event)"
-              (keydown.esc)="onStopEditing.emit()">
+    <textarea
+      [ngClass]="inputClass"
+      class="form-control"
+      [(ngModel)]="cell.newValue"
+      [name]="cell.getId()"
+      [disabled]="checkIsDisabled()"
+      [placeholder]="cell.getTitle()"
+      (click)="onClick.emit($event)"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()"
+    >
     </textarea>
-    `,
+  `,
 })
 export class TextareaEditorComponent extends DefaultEditor {
-
   constructor() {
     super();
+  }
+
+  checkIsDisabled() {
+    if (!this.isCustomEditing) {
+      return !this.cell.isEditable();
+    } else {
+      return !this.cell.isCustomEditable();
+    }
   }
 }

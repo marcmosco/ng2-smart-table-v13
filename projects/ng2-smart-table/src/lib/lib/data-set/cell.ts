@@ -55,6 +55,10 @@ export class Cell {
     }
   }
 
+  isCustomEditable(): boolean {
+    return this.getColumn().isCustomEditable;
+  }
+
   getDefaultValue(): string {
     return this.getColumn().defaultValue;
   }

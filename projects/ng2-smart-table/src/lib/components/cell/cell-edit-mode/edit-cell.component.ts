@@ -11,6 +11,7 @@ import { Cell } from '../../../lib/data-set/cell';
         [cell]="cell"
         [inputClass]="inputClass"
         (edited)="onEdited($event)"
+        [isCustomEditing]="isCustomEditing"
       >
       </table-cell-custom-editor>
       <table-cell-default-editor
@@ -19,6 +20,7 @@ import { Cell } from '../../../lib/data-set/cell';
         [isInPasting]="isInPasting"
         [inputClass]="inputClass"
         (edited)="onEdited($event)"
+        [isCustomEditing]="isCustomEditing"
       >
       </table-cell-default-editor>
     </div>
@@ -28,6 +30,7 @@ export class EditCellComponent {
   @Input() cell: Cell;
   @Input() inputClass: string = '';
   @Input() isInPasting: boolean = false;
+  @Input() isCustomEditing: boolean = false;
   @Output() edited = new EventEmitter<any>();
 
   onEdited(event: any): boolean {

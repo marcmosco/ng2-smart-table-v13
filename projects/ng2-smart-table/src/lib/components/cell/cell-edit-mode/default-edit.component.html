@@ -1,36 +1,51 @@
 <div [ngSwitch]="getEditorType()">
-    <select-editor *ngSwitchCase="'list'"
-                   [cell]="cell"
-                   [inputClass]="inputClass"
-                   (onClick)="onClick($event)"
-                   (onEdited)="onEdited($event)"
-                   (onStopEditing)="onStopEditing()">
-    </select-editor>
+  <select-editor
+    *ngSwitchCase="'list'"
+    [cell]="cell"
+    [inputClass]="inputClass"
+    (onClick)="onClick($event)"
+    (onEdited)="onEdited($event)"
+    (onStopEditing)="onStopEditing()"
+    [isCustomEditing]="isCustomEditing"
+  >
+  </select-editor>
 
-    <textarea-editor *ngSwitchCase="'textarea'"
-                     [cell]="cell"
-                     [inputClass]="inputClass"
-                     (onClick)="onClick($event)"
-                     (onEdited)="onEdited($event)"
-                     (onStopEditing)="onStopEditing()">
-    </textarea-editor>
+  <textarea-editor
+    *ngSwitchCase="'textarea'"
+    [cell]="cell"
+    [inputClass]="inputClass"
+    (onClick)="onClick($event)"
+    (onEdited)="onEdited($event)"
+    (onStopEditing)="onStopEditing()"
+    [isCustomEditing]="isCustomEditing"
+  >
+  </textarea-editor>
 
-    <checkbox-editor *ngSwitchCase="'checkbox'"
-                     [cell]="cell"
-                     [inputClass]="inputClass"
-                     (onClick)="onClick($event)">
-    </checkbox-editor>
+  <checkbox-editor
+    *ngSwitchCase="'checkbox'"
+    [cell]="cell"
+    [inputClass]="inputClass"
+    (onClick)="onClick($event)"
+    [isCustomEditing]="isCustomEditing"
+  >
+  </checkbox-editor>
 
-    <completer-editor *ngSwitchCase="'completer'"
-                      [cell]="cell">
-    </completer-editor>
+  <completer-editor
+    *ngSwitchCase="'completer'"
+    [cell]="cell"
+    [isCustomEditing]="isCustomEditing"
+  >
+  </completer-editor>
 
-    <input-editor *ngSwitchDefault
-                  [cell]="cell"
-                  [inputClass]="inputClass"
-                  (onClick)="onClick($event)"
-                  (onEdited)="onEdited($event)"
-                  (onStopEditing)="onStopEditing()"
-                  [isInPasting]="isInPasting">
-    </input-editor>
+  <input-editor
+    *ngSwitchDefault
+    [cell]="cell"
+    [inputClass]="inputClass"
+    (onClick)="onClick($event)"
+    (onEdited)="onEdited($event)"
+    (onStopEditing)="onStopEditing()"
+    [isInPasting]="isInPasting"
+    [isCustomEditing]="isCustomEditing"
+  >
+  </input-editor>
 </div>

@@ -33,7 +33,15 @@ export class InputEditorComponent extends DefaultEditor implements OnInit {
     if (this.isInPasting) {
       return !this.cell.isPasteble();
     } else {
+      return this.checkIsDisabled();
+    }
+  }
+
+  checkIsDisabled() {
+    if (!this.isCustomEditing) {
       return !this.cell.isEditable();
+    } else {
+      return !this.cell.isCustomEditable();
     }
   }
 }
