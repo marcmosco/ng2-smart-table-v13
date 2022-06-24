@@ -15,11 +15,13 @@ import { DataSource } from '../../../lib/data-source/data-source';
   selector: '[ng2-st-add-button]',
   template: `
     <a
-      *ngIf="isActionAdd && !hideAddAction"
+      *ngIf="isActionAdd"
       href="#"
       class="ng2-smart-action ng2-smart-action-add-add"
+      attr.data-title="{{ tooltipMessage }}"
       [innerHTML]="addNewButtonContent"
-      (click)="onAdd($event)"
+      (click)="onAdd($event, hideAddAction)"
+      [ngClass]="{ disabledAnchor: hideAddAction }"
     ></a>
     <a
       *ngIf="isCleanFilters"
@@ -29,6 +31,7 @@ import { DataSource } from '../../../lib/data-source/data-source';
       (click)="onCleanFilters($event)"
     ></a>
   `,
+  styleUrls: ['./add-button.component.scss'],
 })
 export class AddButtonComponent implements AfterViewInit, OnChanges {
   @Input() hideAddAction: boolean;
@@ -41,6 +44,7 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   isCleanFilters: boolean;
   addNewButtonContent: string;
   cleanFiltersButtonContent: string;
+  tooltipMessage: string;
 
   constructor(private ref: ElementRef) {}
 
@@ -54,22 +58,24 @@ export class AddButtonComponent implements AfterViewInit, OnChanges {
   ngOnChanges() {
     this.isActionAdd = this.grid.getSetting('actions.add');
     this.isCleanFilters = this.grid.getSetting('actions.cleanFilters');
-
     this.addNewButtonContent = this.grid.getSetting('add.addButtonContent');
+    this.tooltipMessage = this.grid.getSetting('add.tooltipMessage');
     this.cleanFiltersButtonContent = this.grid.getSetting(
       'cleanFilters.cleanFiltersButtonContent'
     );
   }
 
-  onAdd(event: any) {
+  onAdd(event: any, hideAddAction: boolean) {
     event.preventDefault();
     event.stopPropagation();
-    if (this.grid.getSetting('mode') === 'external') {
-      this.create.emit({
-        source: this.source,
-      });
-    } else {
-      this.grid.createFormShown = true;
+    if (!hideAddAction) {
+      if (this.grid.getSetting('mode') === 'external') {
+        this.create.emit({
+          source: this.source,
+        });
+      } else {
+        this.grid.createFormShown = true;
+      }
     }
   }
 

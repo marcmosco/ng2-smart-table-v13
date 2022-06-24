@@ -35,6 +35,7 @@ export class TestMarcoComponent implements OnInit {
       cleanFilters: true,
       position: 'right',
     },
+
     paste: {
       confirmCreate: true,
     },
@@ -49,6 +50,7 @@ export class TestMarcoComponent implements OnInit {
     add: {
       confirmCreate: true,
       mode: 'inline',
+      tooltipMessage: 'pippo pluto e paperino',
     },
     columns: {
       codiceCausale: {

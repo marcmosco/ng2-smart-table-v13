@@ -1,0 +1,21 @@
+.disabledAnchor{
+  color:grey;
+  /*pointer-events: none;*/
+  position: relative;
+}
+a.ng2-smart-action-add-add:hover::after {
+  content: attr(data-title);
+  background-color: grey;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 14px;
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-90%);
+  white-space: nowrap;
+  z-index: 1;
+}
