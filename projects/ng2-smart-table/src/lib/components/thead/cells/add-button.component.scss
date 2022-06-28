@@ -3,7 +3,7 @@
   /*pointer-events: none;*/
   position: relative;
 }
-a.ng2-smart-action-add-add:hover::after {
+a.ng2-smart-action-add-add.disabledAnchor:hover::after {
   content: attr(data-title);
   background-color: grey;
   color: #fff;

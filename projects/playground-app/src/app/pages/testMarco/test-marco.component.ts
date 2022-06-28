@@ -19,7 +19,7 @@ export class TestMarcoComponent implements OnInit {
           name: 'view',
           title: 'Titolo <i></i>',
           showAction: function (row: any) {
-            return row.data['cevento'] === 'PRE6018N';
+            return row.data['codiceCausale'] === '537';
           },
         },
         {
@@ -46,6 +46,9 @@ export class TestMarcoComponent implements OnInit {
       confirmDelete: true,
       tableConfirmDelete: true,
       andMode: 'inline',
+      showAction: function (row: any) {
+        return row.data['cevento'] === 'PRE6018N';
+      },
     },
     add: {
       confirmCreate: true,
