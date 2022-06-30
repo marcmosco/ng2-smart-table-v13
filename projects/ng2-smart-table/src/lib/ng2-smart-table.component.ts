@@ -105,7 +105,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
       confirmDelete: false,
     },
     cleanFilters: {
-      cleanFiltersButtonContent: 'provaprova',
+      cleanFiltersButtonContent: 'Clean filters',
     },
     attr: {
       id: '',
@@ -344,5 +344,10 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
 
   alertPagination() {
     this.alert.emit();
+  }
+
+  onCleanFilters(event: any) {
+    this.source.reset();
+    this.cleanFilters.emit();
   }
 }

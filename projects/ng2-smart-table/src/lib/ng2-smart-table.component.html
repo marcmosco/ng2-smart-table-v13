@@ -17,7 +17,7 @@
     [source]="source"
     [createConfirm]="createConfirm"
     (create)="create.emit($event)"
-    (cleanFilters)="cleanFilters.emit($event)"
+    (cleanFilters)="onCleanFilters($event)"
     (selectAllRows)="onSelectAllRows($event)"
     (sort)="sort($event)"
     (filter)="filter($event)"
