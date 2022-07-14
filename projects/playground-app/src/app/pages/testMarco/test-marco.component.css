@@ -1,0 +1,37 @@
+:host ::ng-deep .page-item.disabled .page-link {
+  color: darkgray !important;
+}
+:host ::ng-deep .page-item.active .page-link {
+
+  color: white !important;
+  background-color: #6990CA;
+  border-color: #6990CA;
+}
+:host ::ng-deep .page-item {
+  margin: 3px;
+}
+:host ::ng-deep .page-link {
+  color: black !important;
+  padding: 8px;
+  padding-left: 14px;
+  padding-right: 14px;
+  border-radius: 4px !important;
+}
+:host ::ng-deep .page-link:hover {
+  text-decoration: none;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+:host ::ng-deep .ng2-smart-pagination .page-link-next,
+:host ::ng-deep .ng2-smart-pagination .page-link-prev {
+  font-size: 14px !important;
+}
+:host ::ng-deep .ng2-smart-page-item a:hover {
+  text-decoration: none !important;
+}
+
+:host ::ng-deep  ng2-smart-table-pager {
+  justify-content: center !important;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
