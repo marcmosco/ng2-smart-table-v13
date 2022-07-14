@@ -202,6 +202,11 @@ export class TestMarcoComponent implements OnInit {
         },
       },
     },
+    pager: {
+      display: true,
+      position: 'up',
+      perPage: 15,
+    },
     attr: {
       class: 'table table-bordered',
     },

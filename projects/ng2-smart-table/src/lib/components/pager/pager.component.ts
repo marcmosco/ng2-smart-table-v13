@@ -14,7 +14,7 @@ import { DataSource } from '../../lib/data-source/data-source';
   selector: 'ng2-smart-table-pager',
   styleUrls: ['./pager.component.scss'],
   template: `
-    <div class="ng2-smart-pagination-total">
+    <div class="ng2-smart-pagination-total" *ngIf="pagerPosition === 'down'">
       <label for="per-page"> Totale elementi: {{ count }}</label>
     </div>
     <nav *ngIf="shouldShow()" class="ng2-smart-pagination-nav">
@@ -49,7 +49,10 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
         <li
           class="ng2-smart-page-item page-item"
-          [ngClass]="{ active: getPage() == page, disabled: disablePaginator }"
+          [ngClass]="{
+            active: getPage() == page,
+            disabled: disablePaginator
+          }"
           *ngFor="let page of getPages()"
         >
           <span class="ng2-smart-page-link page-link" *ngIf="getPage() == page"
@@ -95,7 +98,9 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
       </ul>
     </nav>
-
+    <div class="ng2-smart-pagination-total" *ngIf="pagerPosition === 'up'">
+      <label for="per-page"> Totale elementi: {{ count }}</label>
+    </div>
     <nav
       *ngIf="perPageSelect && perPageSelect.length > 0"
       class="ng2-smart-pagination-per-page"
@@ -117,8 +122,10 @@ export class PagerComponent implements OnChanges {
   @Input() source: DataSource;
   @Input() perPageSelect: any[] = [];
   @Input() disablePaginator: boolean;
+  @Input() pagerPosition: string;
   @Output() changePage = new EventEmitter<any>();
   @Output() alertPagination = new EventEmitter<any>();
+
   currentPerPage: any;
 
   protected pages: Array<any>;
