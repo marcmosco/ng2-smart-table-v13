@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DataSource } from '../../lib/data-source/data-source';
@@ -7,43 +14,81 @@ import { DataSource } from '../../lib/data-source/data-source';
   selector: 'ng2-smart-table-pager',
   styleUrls: ['./pager.component.scss'],
   template: `
+    <div class="ng2-smart-pagination-total">
+      <label for="per-page"> Totale elementi: {{ count }}</label>
+    </div>
     <nav *ngIf="shouldShow()" class="ng2-smart-pagination-nav">
       <ul class="ng2-smart-pagination pagination">
-        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: disablePaginator || getPage() == 1}">
-          <a class="ng2-smart-page-link page-link" href="#"
-          (click)="getPage() == 1 ? false : paginate(1)" aria-label="First">
+        <li
+          class="ng2-smart-page-item page-item"
+          [ngClass]="{ disabled: disablePaginator || getPage() == 1 }"
+        >
+          <a
+            class="ng2-smart-page-link page-link"
+            href="#"
+            (click)="getPage() == 1 ? false : paginate(1)"
+            aria-label="First"
+          >
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">First</span>
           </a>
         </li>
-        <li class="ng2-smart-page-item page-item" [ngClass]="{disabled: disablePaginator|| getPage() == 1}">
-          <a class="ng2-smart-page-link page-link page-link-prev" href="#"
-             (click)="getPage() == 1 ? false : prev()" aria-label="Prev">
+        <li
+          class="ng2-smart-page-item page-item"
+          [ngClass]="{ disabled: disablePaginator || getPage() == 1 }"
+        >
+          <a
+            class="ng2-smart-page-link page-link page-link-prev"
+            href="#"
+            (click)="getPage() == 1 ? false : prev()"
+            aria-label="Prev"
+          >
             <span aria-hidden="true">&lt;</span>
             <span class="sr-only">Prev</span>
           </a>
         </li>
-        <li class="ng2-smart-page-item page-item"
-        [ngClass]="{active: getPage() == page, disabled:disablePaginator}" *ngFor="let page of getPages()">
-          <span class="ng2-smart-page-link page-link"
-          *ngIf="getPage() == page">{{ page }} <span class="sr-only">(current)</span></span>
-          <a class="ng2-smart-page-link page-link" href="#"
-          (click)="paginate(page)" *ngIf="getPage() != page">{{ page }}</a>
+        <li
+          class="ng2-smart-page-item page-item"
+          [ngClass]="{ active: getPage() == page, disabled: disablePaginator }"
+          *ngFor="let page of getPages()"
+        >
+          <span class="ng2-smart-page-link page-link" *ngIf="getPage() == page"
+            >{{ page }} <span class="sr-only">(current)</span></span
+          >
+          <a
+            class="ng2-smart-page-link page-link"
+            href="#"
+            (click)="paginate(page)"
+            *ngIf="getPage() != page"
+            >{{ page }}</a
+          >
         </li>
 
-        <li class="ng2-smart-page-item page-item"
-            [ngClass]="{disabled: disablePaginator || getPage() == getLast()}">
-          <a class="ng2-smart-page-link page-link page-link-next" href="#"
-             (click)="getPage() == getLast() ? false : next()" aria-label="Next">
+        <li
+          class="ng2-smart-page-item page-item"
+          [ngClass]="{ disabled: disablePaginator || getPage() == getLast() }"
+        >
+          <a
+            class="ng2-smart-page-link page-link page-link-next"
+            href="#"
+            (click)="getPage() == getLast() ? false : next()"
+            aria-label="Next"
+          >
             <span aria-hidden="true">&gt;</span>
             <span class="sr-only">Next</span>
           </a>
         </li>
 
-        <li class="ng2-smart-page-item page-item"
-        [ngClass]="{disabled: disablePaginator || getPage() == getLast()}">
-          <a class="ng2-smart-page-link page-link" href="#"
-          (click)="getPage() == getLast() ? false : paginate(getLast())" aria-label="Last">
+        <li
+          class="ng2-smart-page-item page-item"
+          [ngClass]="{ disabled: disablePaginator || getPage() == getLast() }"
+        >
+          <a
+            class="ng2-smart-page-link page-link"
+            href="#"
+            (click)="getPage() == getLast() ? false : paginate(getLast())"
+            aria-label="Last"
+          >
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Last</span>
           </a>
@@ -51,28 +96,34 @@ import { DataSource } from '../../lib/data-source/data-source';
       </ul>
     </nav>
 
-    <nav *ngIf="perPageSelect && perPageSelect.length > 0" class="ng2-smart-pagination-per-page">
-      <label for="per-page">
-        Per Page:
-      </label>
-      <select (change)="onChangePerPage($event)" [(ngModel)]="currentPerPage" id="per-page">
-        <option *ngFor="let item of perPageSelect" [value]="item">{{ item }}</option>
+    <nav
+      *ngIf="perPageSelect && perPageSelect.length > 0"
+      class="ng2-smart-pagination-per-page"
+    >
+      <label for="per-page"> Per Page: </label>
+      <select
+        (change)="onChangePerPage($event)"
+        [(ngModel)]="currentPerPage"
+        id="per-page"
+      >
+        <option *ngFor="let item of perPageSelect" [value]="item">
+          {{ item }}
+        </option>
       </select>
     </nav>
   `,
 })
 export class PagerComponent implements OnChanges {
-
   @Input() source: DataSource;
   @Input() perPageSelect: any[] = [];
-  @Input() disablePaginator:boolean;
+  @Input() disablePaginator: boolean;
   @Output() changePage = new EventEmitter<any>();
   @Output() alertPagination = new EventEmitter<any>();
   currentPerPage: any;
 
   protected pages: Array<any>;
   protected page: number;
-  protected count: number = 0;
+  count: number = 0;
   protected perPage: number;
 
   protected dataChangedSub: Subscription;
@@ -117,7 +168,7 @@ export class PagerComponent implements OnChanges {
   }
 
   paginate(page: number): boolean {
-    if(this.disablePaginator){
+    if (this.disablePaginator) {
       this.alertPagination.emit(true);
       return false;
     }
@@ -148,7 +199,9 @@ export class PagerComponent implements OnChanges {
   }
 
   isPageOutOfBounce(): boolean {
-    return (this.page * this.perPage) >= (this.count + this.perPage) && this.page > 1;
+    return (
+      this.page * this.perPage >= this.count + this.perPage && this.page > 1
+    );
   }
 
   initPages() {
@@ -158,7 +211,6 @@ export class PagerComponent implements OnChanges {
     this.pages = [];
 
     if (this.shouldShow()) {
-
       let middleOne = Math.ceil(showPagesCount / 2);
       middleOne = this.page >= middleOne ? this.page : middleOne;
 
@@ -175,8 +227,10 @@ export class PagerComponent implements OnChanges {
 
   onChangePerPage(event: any) {
     if (this.currentPerPage) {
-
-      if (typeof this.currentPerPage === 'string' && this.currentPerPage.toLowerCase() === 'all') {
+      if (
+        typeof this.currentPerPage === 'string' &&
+        this.currentPerPage.toLowerCase() === 'all'
+      ) {
         this.source.getPaging().perPage = null;
       } else {
         this.source.getPaging().perPage = this.currentPerPage * 1;
@@ -185,5 +239,4 @@ export class PagerComponent implements OnChanges {
       this.initPages();
     }
   }
-
 }
