@@ -22,3 +22,42 @@ a.sort {
     margin-bottom: -2px;
   }
 }
+
+.hasTooltip{
+
+  /*pointer-events: none;*/
+  position: relative;
+}
+.ng2-smart-sort-link.hasTooltip:hover::after {
+  content: attr(data-title);
+  background-color: grey;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 14px;
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-90%);
+  white-space: pre-line;
+  z-index: 1;
+}
+
+.ng2-smart-sort.hasTooltip:hover::after {
+  content: attr(data-title);
+  background-color: grey;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 14px;
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-90%);
+  white-space: pre-line;
+  z-index: 1;
+}

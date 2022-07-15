@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DataSource } from '../../../../lib/data-source/data-source';
@@ -8,17 +15,26 @@ import { Column } from '../../../../lib/data-set/column';
   selector: 'ng2-smart-table-title',
   styleUrls: ['./title.component.scss'],
   template: `
-    <a href="#" *ngIf="column.isSortable"
-                (click)="_sort($event)"
-                class="ng2-smart-sort-link sort"
-                [ngClass]="currentDirection">
+    <a
+      href="#"
+      *ngIf="column.isSortable"
+      (click)="_sort($event)"
+      class="ng2-smart-sort-link sort"
+      attr.data-title="{{ column.tooltipMessage }}"
+      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipMessage}"
+    >
       {{ column.title }}
     </a>
-    <span class="ng2-smart-sort" *ngIf="!column.isSortable">{{ column.title }}</span>
+    <span
+      class="ng2-smart-sort"
+      *ngIf="!column.isSortable"
+      attr.data-title="{{ column.tooltipMessage }}"
+      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipMessage}"
+      >{{ column.title }}</span
+    >
   `,
 })
 export class TitleComponent implements OnChanges {
-
   currentDirection = '';
   @Input() column: Column;
   @Input() source: DataSource;
@@ -40,9 +56,7 @@ export class TitleComponent implements OnChanges {
           this.currentDirection = '';
         }
 
-        sortConf.forEach((fieldConf: any) => {
-
-        });
+        sortConf.forEach((fieldConf: any) => {});
       });
     }
   }

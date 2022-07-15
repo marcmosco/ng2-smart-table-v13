@@ -60,6 +60,7 @@ export class TestMarcoComponent implements OnInit {
         width: '120px',
         title: 'Causale',
         customEditable: true,
+        tooltipMessage: 'Tooltip di prova Tooltip di prova',
       },
       codiceAttributo1: {
         width: '120px',
@@ -167,7 +168,7 @@ export class TestMarcoComponent implements OnInit {
         title: 'Importo Divisa',
         sort: false,
         filter: false,
-
+        tooltipMessage: 'S:prova' + '\n\n' + 'Z:prova2',
         type: 'html',
       },
       codCogeDare: {
