@@ -17,7 +17,8 @@ export class Column {
   isReadonly: boolean = false;
   sortDirection: string = '';
   defaultSortDirection: string = '';
-  tooltipMessage: string = '';
+  tooltipColumnMessage: string = '';
+  tooltipDataField: string = '';
   editor: { type: string; config: any; component: any } = {
     type: '',
     config: {},
@@ -83,7 +84,8 @@ export class Column {
     this.type = this.prepareType();
     this.editor = this.settings['editor'];
     this.filter = this.settings['filter'];
-    this.tooltipMessage = this.settings['tooltipMessage'];
+    this.tooltipColumnMessage = this.settings['tooltipColumnMessage'];
+    this.tooltipDataField = this.settings['tooltipDataField'];
     this.renderComponent = this.settings['renderComponent'];
 
     this.isFilterable =

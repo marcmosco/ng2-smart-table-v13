@@ -11,6 +11,7 @@ import { Row } from '../../lib/data-set/row';
       <table-cell-view-mode
         *ngIf="!isInEditing"
         [cell]="cell"
+        [row]="row"
       ></table-cell-view-mode>
     </ng-template>
     <table-cell-edit-mode
@@ -24,7 +25,7 @@ import { Row } from '../../lib/data-set/row';
     </table-cell-edit-mode>
   `,
 })
-export class CellComponent {
+export class CellComponent implements OnInit {
   @Input() grid: Grid;
   @Input() row: Row;
   @Input() editConfirm: EventEmitter<any>;
@@ -37,6 +38,11 @@ export class CellComponent {
   @Input() isInPasting: boolean = false;
   @Input() isCustomEditing: boolean = false;
   @Output() edited = new EventEmitter<any>();
+
+  ngOnInit(): void {
+    console.log(this.grid);
+    console.log(this.row);
+  }
 
   onEdited(event: any) {
     if (this.isNew) {

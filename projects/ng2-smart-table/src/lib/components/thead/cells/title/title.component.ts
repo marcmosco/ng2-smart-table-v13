@@ -20,16 +20,16 @@ import { Column } from '../../../../lib/data-set/column';
       *ngIf="column.isSortable"
       (click)="_sort($event)"
       class="ng2-smart-sort-link sort"
-      attr.data-title="{{ column.tooltipMessage }}"
-      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipMessage}"
+      attr.data-title="{{ column.tooltipColumnMessage }}"
+      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipColumnMessage}"
     >
       {{ column.title }}
     </a>
     <span
       class="ng2-smart-sort"
       *ngIf="!column.isSortable"
-      attr.data-title="{{ column.tooltipMessage }}"
-      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipMessage}"
+      attr.data-title="{{ column.tooltipColumnMessage }}"
+      [ngClass]="{currentDirection, hasTooltip:!!column.tooltipColumnMessage}"
       >{{ column.title }}</span
     >
   `,
