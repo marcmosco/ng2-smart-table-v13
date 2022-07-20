@@ -60,7 +60,7 @@ export class TestMarcoComponent implements OnInit {
         width: '120px',
         title: 'Causale',
         customEditable: true,
-        tooltipColumnMessage: 'Tooltip di prova Tooltip di prova',
+
         tooltipDataField: 'codCogeDare',
       },
       codiceAttributo1: {

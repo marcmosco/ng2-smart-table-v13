@@ -39,10 +39,7 @@ export class CellComponent implements OnInit {
   @Input() isCustomEditing: boolean = false;
   @Output() edited = new EventEmitter<any>();
 
-  ngOnInit(): void {
-    console.log(this.grid);
-    console.log(this.row);
-  }
+  ngOnInit(): void {}
 
   onEdited(event: any) {
     if (this.isNew) {
