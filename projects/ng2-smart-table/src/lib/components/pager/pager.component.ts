@@ -14,9 +14,6 @@ import { DataSource } from '../../lib/data-source/data-source';
   selector: 'ng2-smart-table-pager',
   styleUrls: ['./pager.component.scss'],
   template: `
-    <div class="ng2-smart-pagination-total" *ngIf="pagerPosition === 'down'">
-      <label for="per-page"> Totale elementi: {{ count }}</label>
-    </div>
     <nav *ngIf="shouldShow()" class="ng2-smart-pagination-nav">
       <ul class="ng2-smart-pagination pagination">
         <li
@@ -98,9 +95,7 @@ import { DataSource } from '../../lib/data-source/data-source';
         </li>
       </ul>
     </nav>
-    <div class="ng2-smart-pagination-total" *ngIf="pagerPosition === 'up'">
-      <label for="per-page"> Totale elementi: {{ count }}</label>
-    </div>
+
     <nav
       *ngIf="perPageSelect && perPageSelect.length > 0"
       class="ng2-smart-pagination-per-page"
@@ -126,6 +121,7 @@ export class PagerComponent implements OnChanges {
   @Output() changePage = new EventEmitter<any>();
   @Output() alertPagination = new EventEmitter<any>();
 
+  @Output() countEvent = new EventEmitter<any>();
   currentPerPage: any;
 
   protected pages: Array<any>;
@@ -145,6 +141,7 @@ export class PagerComponent implements OnChanges {
         this.perPage = this.source.getPaging().perPage;
         this.currentPerPage = this.perPage;
         this.count = this.source.count();
+        this.countEvent.emit(this.count);
         if (this.isPageOutOfBounce()) {
           this.source.setPage(--this.page);
         }

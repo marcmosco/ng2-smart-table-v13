@@ -206,7 +206,7 @@ export class TestMarcoComponent implements OnInit {
     },
     pager: {
       display: true,
-      position: 'up',
+      position: 'down',
       perPage: 15,
     },
     attr: {

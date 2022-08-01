@@ -6,8 +6,12 @@
   (changePage)="changePage($event)"
   (alertPagination)="alertPagination()"
   [pagerPosition]="pagerPosition"
+  (countEvent)="count = $event"
 >
 </ng2-smart-table-pager>
+<div class="ng2-smart-pagination-total">
+  <label> Totale elementi: {{ count }}</label>
+</div>
 <table [id]="tableId" [ngClass]="tableClass">
   <thead
     ng2-st-thead
@@ -52,5 +56,6 @@
   (changePage)="changePage($event)"
   (alertPagination)="alertPagination()"
   [pagerPosition]="pagerPosition"
+  (countEvent)="count = $event"
 >
 </ng2-smart-table-pager>

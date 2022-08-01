@@ -51,6 +51,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
   isPagerDisplay: boolean;
   pagerPosition: string;
   rowClassFunction: Function;
+  count = 0;
 
   grid: Grid;
   defaultSettings: Object = {
@@ -136,6 +137,7 @@ export class Ng2SmartTableComponent implements OnChanges, OnDestroy {
       if (changes['source']) {
         this.source = this.prepareSource();
         this.grid.setSource(this.source);
+        this.count = this.source.count();
       }
     } else {
       this.initGrid();
