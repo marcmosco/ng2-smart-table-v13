@@ -12,6 +12,7 @@ import { Cell } from '../../../lib/data-set/cell';
         [inputClass]="inputClass"
         (edited)="onEdited($event)"
         [isCustomEditing]="isCustomEditing"
+        [isInPasting]="isInPasting"
       >
       </table-cell-custom-editor>
       <table-cell-default-editor

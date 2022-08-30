@@ -24,11 +24,13 @@ export class InputEditorComponent extends DefaultEditor implements OnInit {
   constructor() {
     super();
   }
+
   ngOnInit() {
     if (!this.cell.newValue && this.cell.getDefaultValue() !== '') {
       this.cell.newValue = this.cell.getDefaultValue();
     }
   }
+
   isDisabled() {
     if (this.isInPasting) {
       return !this.cell.isPasteble();

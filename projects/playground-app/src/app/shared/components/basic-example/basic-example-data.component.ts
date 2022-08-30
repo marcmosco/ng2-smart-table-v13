@@ -11,7 +11,7 @@ export class BasicExampleDataComponent {
     columns: {
       id: {
         editable: false,
-        pasteble: false,
+        pasteble: true,
         title: 'ID',
       },
       name: {

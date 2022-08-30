@@ -38,6 +38,7 @@ export class CustomEditComponent
       this.customComponent.instance.cell = this.cell;
       this.customComponent.instance.inputClass = this.inputClass;
       this.customComponent.instance.isCustomEditing = this.isCustomEditing;
+      this.customComponent.instance.isInPasting = this.isInPasting;
       this.customComponent.instance.onStopEditing.subscribe(() =>
         this.onStopEditing()
       );
