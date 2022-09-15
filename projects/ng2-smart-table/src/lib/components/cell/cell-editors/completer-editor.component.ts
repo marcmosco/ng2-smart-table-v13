@@ -19,7 +19,6 @@ import { DefaultEditor } from './default-editor';
         cell.getColumn().getConfig().completer.placeholder || 'Start typing...'
       "
       (selected)="onEditedCompleter($event)"
-      (blur)="onBlurEdited($event)"
     >
     </ng2-completer>
   `,
@@ -57,27 +56,22 @@ export class CompleterEditorComponent extends DefaultEditor implements OnInit {
   }
 
   onEditedCompleter(event: any): boolean {
-    const config = this.cell.getColumn().getConfig().completer;
-    let fun = this.cell.getColumn().getConfig().afterSelect;
+    if (!!event) {
+      const config = this.cell.getColumn().getConfig().completer;
+      let fun = this.cell.getColumn().getConfig().afterSelect;
 
-    if (config.remote && config.url) {
-      this.cell.newValue = event.originalObject[config.valueField];
+      if (config.remote && config.url) {
+        this.cell.newValue = event.originalObject[config.valueField];
+      } else {
+        this.cell.newValue = event.title;
+      }
+      if (fun) {
+        fun(this.cell.getRow(), this.cell.newValue);
+      }
+      return false;
     } else {
-      this.cell.newValue = event.title;
-    }
-    if (fun) {
-      fun(this.cell.getRow(), this.cell.newValue);
-    }
-    return false;
-  }
-
-  onBlurEdited(event: any) {
-    const config = this.cell.getColumn().getConfig().completer;
-    let fun = this.cell.getColumn().getConfig().afterSelect;
-
-    this.cell.newValue = null;
-    if (fun) {
-      fun(this.cell.getRow(), this.cell.newValue);
+      this.cell.newValue = null;
+      return false;
     }
   }
 }

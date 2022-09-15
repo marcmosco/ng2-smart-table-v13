@@ -63,7 +63,38 @@ export class TestMarcoComponent implements OnInit {
 
         tooltipDataField: 'codCogeDare',
       },
-      codiceAttributo1: {
+      mese: {
+        width: '150px',
+        title: 'Mese',
+        editor: {
+          type: 'completer',
+          config: {
+            completer: {
+              placeholder: 'Mese',
+              valueField: 'codice',
+              titleField: 'descrizione',
+              remote: true,
+              url: 'http://localhost:8090/dizionario/listaMesi?filter=',
+            },
+            afterSelect: function (row: any, val: any) {
+              let date = new Date();
+              let endMonth = new Date(date.getFullYear(), val, 0);
+
+              for (let cell of row.cells) {
+                if (cell.column['id'] === 'dataConsolidamento') {
+                  if (!!val) {
+                    cell['newValue'] = endMonth.toISOString();
+                  } else {
+                    cell['newValue'] = null;
+                  }
+                }
+              }
+            },
+          },
+        },
+      },
+
+      /*  codiceAttributo1: {
         width: '120px',
         title: 'Attributo 1',
         customEditable: true,
@@ -202,7 +233,7 @@ export class TestMarcoComponent implements OnInit {
             delay: 500,
           },
         },
-      },
+      },*/
     },
     pager: {
       display: true,
