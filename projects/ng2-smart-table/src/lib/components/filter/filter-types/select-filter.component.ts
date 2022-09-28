@@ -12,7 +12,7 @@ import { DefaultFilter } from './default-filter';
       class="form-control"
       #inputControl
       [(ngModel)]="query"
-      [size]="column.getFilterConfig()?.list?.length / 2"
+      [size]="column.getFilterConfig().size ? column.getFilterConfig().size : 5"
     >
       <option value="">{{ column.getFilterConfig().selectText }}</option>
       <option
