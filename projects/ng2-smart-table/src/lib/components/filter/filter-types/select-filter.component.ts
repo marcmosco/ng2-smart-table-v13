@@ -8,14 +8,11 @@ import { DefaultFilter } from './default-filter';
   selector: 'select-filter',
   template: `
     <select
-      #selectFilter
       [ngClass]="inputClass"
       class="form-control"
       #inputControl
       [(ngModel)]="query"
-      (change)="selectFilter.size = 1; selectFilter.blur()"
-      (focus)="selectFilter.size = 5"
-      (blur)="selectFilter.size = 1"
+      [size]="column.getFilterConfig().size ? column.getFilterConfig().size : 5"
     >
       <option value="">{{ column.getFilterConfig().selectText }}</option>
       <option

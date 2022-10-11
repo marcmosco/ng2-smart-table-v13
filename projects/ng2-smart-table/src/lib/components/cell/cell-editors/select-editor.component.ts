@@ -5,18 +5,20 @@ import { DefaultEditor } from './default-editor';
   selector: 'select-editor',
   template: `
     <select
-      #selectEditor
       [ngClass]="inputClass"
       class="form-control"
       [(ngModel)]="cell.newValue"
       [name]="cell.getId()"
       [disabled]="checkIsDisabled()"
       (click)="onClick.emit($event)"
-      (keydown.enter)="onEdited.emit($event); selectEditor.blur()"
-      (keydown.esc)="onStopEditing.emit(); selectEditor.blur()"
-      (change)="onChange($event); selectEditor.size = 1; selectEditor.blur()"
-      (focus)="selectEditor.size = 5"
-      (blur)="selectEditor.size = 1"
+      (keydown.enter)="onEdited.emit($event)"
+      (keydown.esc)="onStopEditing.emit()"
+      (change)="onChange($event)"
+      [size]="
+        cell.getColumn().getConfig().size
+          ? cell.getColumn().getConfig().size
+          : 5
+      "
     >
       <option
         *ngFor="let option of cell.getColumn().getConfig()?.list"
