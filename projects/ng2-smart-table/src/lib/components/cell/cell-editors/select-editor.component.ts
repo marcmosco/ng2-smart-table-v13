@@ -14,11 +14,7 @@ import { DefaultEditor } from './default-editor';
       (keydown.enter)="onEdited.emit($event)"
       (keydown.esc)="onStopEditing.emit()"
       (change)="onChange($event)"
-      [size]="
-        cell.getColumn().getConfig().size
-          ? cell.getColumn().getConfig().size
-          : 5
-      "
+      [size]="cell.getColumn().getConfig()?.list?.length / 2"
     >
       <option
         *ngFor="let option of cell.getColumn().getConfig()?.list"
